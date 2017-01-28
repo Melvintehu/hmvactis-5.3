@@ -50,7 +50,8 @@ class MembersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('cms.pages.members.show', compact('user'));
     }
 
     /**

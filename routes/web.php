@@ -11,8 +11,8 @@ Route::group(['prefix' => 'cms'],  function () {
     Route::group(['middleware' => ['auth']], function(){
 
         // crm related routes
-        Route::get('/members', 'MembersController@index');
-        Route::get('/non-members', 'NonMembersController@index');
+        Route::resource('members', 'MembersController');
+        Route::resource('non-members', 'NonMembersController');
         Route::get('/registrations', 'RegistrationsController@index');
 
 

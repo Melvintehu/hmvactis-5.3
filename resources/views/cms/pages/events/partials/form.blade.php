@@ -12,15 +12,50 @@
 
 <!-- form textfield  -->
 <div class='form-group'>
-    {!! Form::label('date', '  Datum  ') !!}
-    {!! Form::date('date', null, ['class' => 'form-control']) !!}
+    <label> Datum </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      {!! Form::text('date', null, ['id' => 'datepicker', 'class' => 'form-control pull-right']) !!}
+    </div>
 </div>
 
-<!-- form textfield  -->
-<div class='form-group'>
-    {!! Form::label('time', '  tijd  ') !!}
-    {!! Form::text('time', null, ['class' => 'form-control']) !!}
+
+
+<div class="bootstrap-timepicker">
+    <div class="form-group">
+      <label>Start tijd</label>
+
+      <div class="input-group">
+
+        <div class="input-group-addon">
+          <i class="fa fa-clock-o"></i>
+        </div>
+        {!! Form::text('time', null, ['class' => 'form-control timepicker pull-right']) !!}
+      </div>
+      <!-- /.input group -->
+    </div>
+<!-- /.form group -->
 </div>
+
+
+<div class="bootstrap-timepicker">
+    <div class="form-group">
+      <label>Eind Tijd</label>
+
+      <div class="input-group">
+
+        <div class="input-group-addon">
+          <i class="fa fa-clock-o"></i>
+        </div>
+        {!! Form::text('time', null, ['class' => 'form-control timepicker pull-right']) !!}
+      </div>
+      <!-- /.input group -->
+    </div>
+<!-- /.form group -->
+</div>
+
 
 <!-- form textfield  -->
 <div class='form-group'>
