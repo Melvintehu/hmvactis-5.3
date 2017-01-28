@@ -1,0 +1,159 @@
+// variables
+
+$primary-color: #2C3636;
+$secondary-color: #95CD74;
+$accent-color: #D5D9DE;
+
+// end of variables
+.countdownmessage{
+
+	display: block;
+	margin-bottom: 10px; 
+	padding: 10px;
+	padding-top: 12px;
+	@include mediumParagraph();
+	font-size: 20px;
+}	
+	
+.days, .hours, .seconds, .minutes{
+	background: $primary-color;
+	display: inline-block;
+	color: white;
+	padding: 10px;
+	@include mediumParagraph();
+}
+
+
+.countdown{
+	text-align: center;
+	margin-bottom: 20px;
+	margin-top: 30px;
+}
+
+.social-media{
+
+	width: 120px;
+	min-height: 1px;
+	overflow: hidden;
+	margin:0px auto 0px auto;
+
+	img{
+		width: 30px;
+		float: left;
+		margin-right: 10px;
+	}
+}
+
+
+body{
+	@include openSans();
+	color: $primary-color;
+}
+
+a{
+	color: inherit;
+}
+
+a:hover , a:focus{
+	text-decoration: none;
+	color: inherit;
+}
+
+
+p{
+	margin: 0px;
+	
+}
+
+h1, h2, h3, h4, h5 {
+	@include bitter();
+	margin: 0px;
+}
+
+
+
+
+
+.mediumParagraph{
+	font-size: 17px !important;
+}
+
+.smallParagraph{
+	font-size: 11px !important;
+}
+
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+/*  BACKGROUNDS */
+
+
+.background-primary{
+	background: $primary-color;
+} 
+
+.background-secondary{
+	background: $secondary-color ;
+}
+
+.background-accent{
+	background: $accent-color ;
+}
+
+.background-black{
+	background: black ;
+}
+
+// helper klassen
+
+.round{
+	border-radius: 2000px;
+}
+
+// links and buttons
+
+.link{
+	@include link();
+}
+
+
+// text related
+
+.text-white{
+	p, h1, h2, h3, h4, h5, span, a{
+		color: white !important;
+	
+	}
+}
+
+.text{
+	margin: 30px 0px;
+
+	p{
+
+		.bulletpoint{
+			padding: 10px;
+			margin: 2px;
+			display: inline-block;
+			margin-right: 20px;
+			position: relative;
+			top: 7px;	
+		}
+	}	
+
+	h3{
+		margin-bottom: 13px;
+	}
+
+	@include mediumParagraph();
+}

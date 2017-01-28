@@ -1,0 +1,57 @@
+.agenda{
+
+}
+
+.agenda .widget-month{
+	min-height: 1px;
+	width: 100%;
+
+	.items{
+
+		h1{	
+			@include pageTitle();
+			color: white !important;
+			text-transform: uppercase;
+		}
+
+		p{	
+			display: block;
+			margin-bottom: 15px;
+			@include mediumParagraph();
+			font-size: 18px !important;
+			color: white !important;
+			span{
+				color: $secondary-color; 
+			}
+		}
+
+	}
+
+
+
+
+	.month{
+		width: 265px;
+		height: 265px;
+		text-align: center;
+		margin: 50px auto;
+
+
+		p{
+			display: block;
+			@include bigParagraph();
+			@include bitter();
+			font-weight: 300 !important;
+			color: white !important;
+			position: relative;
+			top: 105px;
+			text-transform: uppercase;
+		}
+
+	}
+
+	.items{
+
+	}
+
+}

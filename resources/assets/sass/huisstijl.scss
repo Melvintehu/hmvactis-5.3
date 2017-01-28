@@ -1,0 +1,318 @@
+/* VARIABLES */
+
+
+
+
+$light-color: white;
+$dark-color: #2C3636;
+$main-color : #95CD74;
+$secondary-color : #2C3636;
+
+$accent-color : #d5d9de;
+
+$background-color-light: white;
+$background-color-dark: #000000;
+
+
+
+
+$font: 'Open Sans', sans-serif;
+$font-heading: 'Bitter', sans-serif;
+
+
+$font-size-xs: 14px;
+$font-size-sm: 17px;
+$font-size-md: 24px;
+$font-size-lg: 38px;
+
+
+$input-height: 33px;
+
+.font-main{
+	font-family: $font;
+}
+
+.font-secondary{
+	font-family: $font-heading;
+}
+
+
+
+body{
+
+	background: $background-color-light;
+	font-size: $font-size-sm;
+}
+
+a{ color: $dark-color; }
+
+
+
+/* COLORS */
+
+
+/* text colors */
+
+
+
+.text-color-light{
+	color: $light-color;
+}
+
+.text-color-dark{
+	color: $dark-color;
+}
+
+.text-color-main{
+	color: $main-color;
+}
+
+.text-color-secondary{
+	color: $secondary-color;
+}
+
+.text-color-accent{
+	color: $accent-color;
+}
+
+
+
+
+
+
+
+
+
+/* background colors */
+
+.bg-light{ 
+	background: $background-color-light; 
+	min-height: 1px;
+}
+
+.bg-dark{ 
+	background: $background-color-dark; 
+	min-height: 1px;
+}
+
+.bg-main{
+	background: $main-color !important;
+	min-height: 1px;
+}
+
+.bg-secondary{
+	background: $secondary-color;
+	min-height: 1px;
+}
+
+.bg-accent{
+	background: $accent-color;
+	min-height: 1px;
+}
+
+
+
+
+/* background hover colors */
+
+.hover-light:hover{ background: $background-color-light !important; }
+
+.hover-dark:hover{ background: $background-color-dark !important; }
+
+.hover-main:hover{ background: $main-color !important; }
+
+.hover-secondary:hover{ background: $secondary-color !important; }
+
+.hover-accent:hover{ background: $accent-color !important; }
+
+
+
+
+
+
+
+
+
+/* HEADINGS AND TEXT */
+
+
+/* font size classes */
+
+.font-xs{ font-size: $font-size-xs; }
+.font-sm{ font-size: $font-size-sm; }
+.font-md{ font-size: $font-size-md; }
+.font-lg{ font-size: $font-size-lg; }
+
+
+/* transforms */
+
+.uppercase{ text-transform: uppercase; }
+.lowercase{ text-transform: lowercase; }
+
+
+/* Heading sizes */
+
+h1{ font-size: $font-size-lg; }
+
+h2{ font-size: $font-size-md; }
+
+h3{ font-size: $font-size-sm; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* BUTTONS */
+
+
+
+a.btn-standard, input[type=submit].btn-standard, button.btn-standard{
+	padding: 15px 55px;
+	
+	margin-left: auto;
+	margin-right: auto;
+
+	border: none;
+	display: inline-block;
+}
+
+a.btn-round{
+	font-weight: 300;
+	
+
+	span{
+		margin-left: 20px;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* FORM ELEMENTS */
+
+
+.input{
+	width: 100%;
+	height: $input-height;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.textarea{
+	width: 100%;
+	height: 180px;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.input-label{
+	height: $input-height;
+	line-height: $input-height;
+	width: 100%;
+}
+
+
+.input::placeholder, .textarea::placeholder{
+	color: $dark-color;
+	font-size: $font-size-xs;
+}
+
+
+
+/* BORDERS */
+
+
+
+
+.border-light{ border-color: $background-color-light; }
+
+.border-dark{ border-color: $background-color-dark; }
+
+.border-accent{ border-color: $accent-color; }
+
+.border-secondary{ border-color: $secondary-color; }
+
+.border-main{ border-color: $main-color; }
+
+
+/* border shapes */
+
+.border-curved{ border-radius: 5px; }
+
+.border-curved-down{ 
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+ }
+
+.border-curved-up{ 
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px; 
+}
+
+.border-curved-right{
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.border-curved-left{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;	
+}
+
+
+/* Heading colors*/
+
+/* Default color */
+
+h1, h2, h3, h4, h5{
+	color: $dark-color;
+}
+
+
+h1,h2,h3,h4,h5{
+	font-family: $font-heading !important;
+}
+
+
+/* Other colors */
+
+h1.text-color-light, h2.text-color-light, h3.text-color-light, h4.text-color-light, h5.text-color-light, span.text-color-light, p.text-color-light, a.text-color-light{
+	color : $light-color;
+}
+
+h1.text-color-dark, h2.text-color-dark, h3.text-color-dark, h4.text-color-dark, h5.text-color-dark, span.text-color-dark, p.text-color-dark, a.text-color-dark{
+	color: $dark-color;
+}
+
+h1.text-color-main, h2.text-color-main, h3.text-color-main, h4.text-color-main, h5.text-color-main, span.text-color-main, p.text-color-main, a.text-color-main{
+	color: $main-color;
+}
+
+h1.text-color-secondary, h2.text-color-secondary, h3.text-color-secondary, h4.text-color-secondary, h5.text-color-secondary, span.text-color-secondary, p.text-color-secondary, a.text-color-secondary{
+	color: $secondary-color;
+}
+
+h1.text-color-accent, h2.text-color-accent, h3.text-color-accent, h4.text-color-accent, h5.text-color-accent, span.text-color-accent, p.text-color-accent, a.text-color-accent{
+	color: $accent-color;
+}

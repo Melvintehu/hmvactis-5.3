@@ -1,0 +1,44 @@
+.hoofdpartner{
+	
+	min-height: 105px;
+	width: 100%;
+	margin-bottom: 75px;
+	h1{
+		text-align: center;	
+		margin-top: 75px;
+		margin-bottom: 75px;
+	}
+
+	.image-en-websitebezoeken{
+		width: 30%;
+		height: 100%;
+		float: left;
+
+		.image{
+
+		}
+
+	
+	}
+
+	.information{
+
+		h2{
+			margin-top: 20px;
+    		margin-bottom: 10px;
+		}
+
+		width: 65%;
+		height: 100%;
+		float: left;
+		p{
+			display: block;
+			height: 100%;
+			width: 100%;
+			@include mediumParagraph();
+			color: #2c3636;
+		}
+
+	}
+
+}

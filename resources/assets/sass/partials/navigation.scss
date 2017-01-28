@@ -1,0 +1,43 @@
+.navbar-background{
+	display: block;
+	background: #95CD74;
+	min-height: 10px;
+}
+
+
+
+.navbar{
+	background: #95CD74;
+	border: none;
+	margin: 0px;
+}
+
+ul li a{
+	color: white !important;
+	@include bitter();
+}
+
+.active a{
+	background: #2C3636 !important;
+}
+
+
+.dropdown-menu li a{
+	color: #2C3636 !important;
+}
+
+ul li a:focus{
+	background: #2C3636 !important; 
+	color: white !important;
+}
+
+ul li a:hover{
+	background: #2C3636 !important; 
+	color: white !important;
+}
+
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:20px !important; 
+    padding-bottom:18px !important;
+    height: 60px;
+}

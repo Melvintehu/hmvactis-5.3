@@ -1,0 +1,38 @@
+.navbar-default{
+	background-color: $main-color;
+	border-color: $main-color;
+}
+
+
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: $secondary-color;
+    background-color: transparent;
+}
+
+
+
+
+
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover {
+    color: $secondary-color;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a {
+    color: white;
+    background-color: transparent;
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+
+
+
+
+.navbar{
+	position:relative;
+	top: 29px;
+}
