@@ -72,7 +72,7 @@
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="/images/cutie.jpg" class="img-circle" alt="User jsdfkjsdfImage">
+                        <img src="/images/user_icon.png" class="img-circle" alt="User jsdfkjsdfImage">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -156,22 +156,22 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="/images/cutie.jpg" class="user-image" alt="User Image">
+              <img src="/images/user_icon.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Melvin Tehubijuluw</span>
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/images/cutie.jpg" class="img-circle" alt="User Image">
+                <img src="/images/user_icon.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Melvin Tehubijuluw - Leaddeveloper
-                  <small>Member since Nov. 2012</small>
+                  {{ Auth::user()->name }}
+                  <small>Lid sinds: {{ Auth::user()->join_date }}</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+<!--               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -183,15 +183,14 @@
                     <a href="#">Friends</a>
                   </div>
                 </div>
-                <!-- /.row -->
-              </li>
+              </li> -->
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
+<!--                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
+                </div> -->
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ URL::to('logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -245,23 +244,29 @@
     <div class="tab-content">
       <!-- Home tab content -->
       <div class="tab-pane active" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <h3 class="control-sidebar-heading">MEN Technology & Media</h3>
         <ul class="control-sidebar-menu">
           <li>
             <a href="javascript:;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+              <i class="menu-icon fa fa-phone" aria-hidden="true"></i>
 
               <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                <h4 class="control-sidebar-subheading">
+                    <h5>+31(0) 630063231</h5>
+                    <p>Melvin Tehubijuluw</p>
 
-                <p>Will be 23 on April 24th</p>
+                    <h5>+31(0) 646501798</h5>
+                    <p>Eric Landheer</p>
+                </h4>
+                <br/>
+                <p>Bericht ons voor vragen of toevoegingen</p>
               </div>
             </a>
           </li>
         </ul>
         <!-- /.control-sidebar-menu -->
 
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+<!--         <h3 class="control-sidebar-heading">Tasks Progress</h3>
         <ul class="control-sidebar-menu">
           <li>
             <a href="javascript:;">
@@ -277,7 +282,7 @@
               </div>
             </a>
           </li>
-        </ul>
+        </ul> -->
         <!-- /.control-sidebar-menu -->
 
       </div>
@@ -288,16 +293,16 @@
       <!-- Settings tab content -->
       <div class="tab-pane" id="control-sidebar-settings-tab">
         <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
+          <h3 class="control-sidebar-heading">Instellingen</h3>
 
           <div class="form-group">
             <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
+              Basisinstellingen
+              <!-- <input type="checkbox" class="pull-right" checked> -->
             </label>
 
             <p>
-              Some information about this general settings option
+              Momenteel zijn er nog geen instellingen die gewijzigd kunnen worden.
             </p>
           </div>
           <!-- /.form-group -->
