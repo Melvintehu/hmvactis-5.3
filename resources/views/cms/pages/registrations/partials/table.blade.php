@@ -4,6 +4,7 @@
                   <th>Studentnummer</th>
                   <th>Iban</th>
                   <th>T.N.V.</th>
+                  <th>Heeft admin rechten</th>
                 </tr>
 
                 @foreach($users as $user)
@@ -14,6 +15,6 @@
                     <td> {{ $user->profile->student_number }} </td>
                     <td> {{ $user->profile->iban }} </td>
                     <td> {{ $user->profile->tnv }}</td>
-
+                    <td> {{ $user->admin_rights }} </td>
                 </tr>
                 @endforeach
