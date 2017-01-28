@@ -77,7 +77,9 @@ class BoardsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $board = Board::find($id);
+        $board->update($request->all());
+        return redirect('cms/boards');
     }
 
     /**

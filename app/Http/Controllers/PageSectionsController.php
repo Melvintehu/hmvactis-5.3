@@ -34,7 +34,7 @@ class PageSectionsController extends Controller
     {
 
         
-        $pages = Page::lists('title', 'id');
+        $pages = Page::pluck('title', 'id');
 
 
         return view('cms.pages.pageSections.create', compact('pages'));
@@ -60,7 +60,7 @@ class PageSectionsController extends Controller
      */
     public function show($id)
     {   
-        $pages = Page::lists('title', 'id');
+        $pages = Page::pluck('title', 'id');
         $pageSection = PageSection::find($id);
         return view('cms.pages.pageSections.update', compact('pages', 'pageSection'));
     }

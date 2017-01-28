@@ -33,7 +33,7 @@ class CommitteeMembersController extends Controller
     public function create()
     {
 
-        $committees = Committee::lists('name', 'id');
+        $committees = Committee::pluck('name', 'id');
         return view('cms.pages.committeeMembers.create', compact('committees'));
     }
 
@@ -57,7 +57,7 @@ class CommitteeMembersController extends Controller
      */
     public function show($id)
     {   
-        $committees = Committee::lists('name', 'id');
+        $committees = Committee::pluck('name', 'id');
         $committeeMember = CommitteeMember::find($id);
         return view('cms.pages.committeeMembers.update', compact('committeeMember', 'committees'));
     }
