@@ -96,8 +96,14 @@ class EventsController extends Controller
      */
     public function show($id)
     {
+
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'event']
+        ])->first();
+
         $event = Event::find($id);
-        return view('cms.pages.events.update', compact('event'));
+        return view('cms.pages.events.update', compact('event', 'photo'));
     }
 
     /**

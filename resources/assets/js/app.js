@@ -1,4 +1,9 @@
 require('./bootstrap');
+require('./Core/Classes');
+
+
+
+
 require('jquery');
 require('bootstrap-sass');
 require('fastclick');
@@ -14,6 +19,7 @@ require('admin-lte/plugins/colorpicker/bootstrap-colorpicker.min');
 require('admin-lte/plugins/timepicker/bootstrap-timepicker.min');
 require('admin-lte/plugins/iCheck/icheck.min');
 
+
 // init plugins here
 $('#datepicker').datepicker();
 $('.timepicker').timepicker({
@@ -22,4 +28,5 @@ $('.timepicker').timepicker({
 	maxHours: 24,
 	showMeridian: false
 });
+
 

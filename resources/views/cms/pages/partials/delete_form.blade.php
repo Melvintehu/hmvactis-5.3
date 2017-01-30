@@ -1,7 +1,6 @@
 
 <!-- form submit button -->
-<div class='form-group'>
 
-   <button style='border:none;background:none;'> <i class="fa fa-times"></i> </button>
 
-</div>
+   <button  style="display:inline-block;float:left;margin:3px;" class="btn btn-danger" > <i class="fa fa-times"></i> </button>
+

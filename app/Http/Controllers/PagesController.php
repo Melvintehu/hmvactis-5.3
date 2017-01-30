@@ -36,7 +36,7 @@ class PagesController extends Controller
         $pages = page::all();
         $profile = Profile::ofLoggedInUser();
 
-        return view('cms.pages.pages.overzicht', compact(
+        return view('cms.pages.pages.index', compact(
             'pages',
             'profiel'
         ));

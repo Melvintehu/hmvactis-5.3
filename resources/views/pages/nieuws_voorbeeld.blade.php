@@ -19,8 +19,8 @@
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 space-inside-down-lg">
 					<div class="image ">
-						@if($newsmessage->photos->first()['path'] != null)
-							<img class="" src="../{{$newsmessage->photos->first()['path']}}">
+						@if($newsmessage->photo() != null)
+							<img class="" src="../{{$newsmessage->thumbnail}}">
 						@else
 							<img class="" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 						@endif

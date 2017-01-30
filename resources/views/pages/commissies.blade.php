@@ -1,12 +1,10 @@
 @extends('master')
 
 @section('title')
-	
+
 	Commissies
 
 @stop
-
-
 
 @section('content')
 
@@ -33,18 +31,18 @@
 							<span >30 maart 2016  </span>
 
 						</div>
-						
+
 						<div class="image round background-accent">
 
 							<img class="img-responsive icon" src="../images/{{ $committee->name }}-icon.png">
 
 						</div>
 
-						
+
 
 							<h4 class="text-center space-outside-up-md"> {{ $committee->name }} </h4>
 
-						
+
 
 						<div style="clear:both;"></div>
 

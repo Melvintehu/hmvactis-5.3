@@ -69,8 +69,8 @@ class VacanciesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
-        
+    {
+
     }
 
     /**
@@ -81,10 +81,15 @@ class VacanciesController extends Controller
      */
     public function edit($id)
     {
-        $vacancie = Vacancie::findOrFail($id);
-   
+         $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'vacancy']
+        ])->first();
 
-        return view('cms.pages.vacancies.update', compact('vacancie'));
+        $vacancie = Vacancie::findOrFail($id);
+
+
+        return view('cms.pages.vacancies.update', compact('vacancie', 'photo'));
     }
 
     /**
@@ -117,7 +122,7 @@ class VacanciesController extends Controller
 
 
     public function addPhoto($id, Request $request)
-    {   
+    {
 
         // check of er een foto bestaat voor dit nieuws id
         $vacancie = Vacancie::findOrFail($id);
@@ -130,19 +135,19 @@ class VacanciesController extends Controller
             $photos->first()->delete();
         }
 
-        // create a new photo    
+        // create a new photo
         $photo = $this->makePhoto($request->file('file'));
 
 
         $vacancie->addPhoto($photo);
-        
+
         return 'done';
     }
 
 
     public function makePhoto($file)
     {
-        
+
         return Photo::named($file->getClientOriginalName(), 'vacatures')
             ->setThumbnailDimensions(250,150)
             ->move($file);

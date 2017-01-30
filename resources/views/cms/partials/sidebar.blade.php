@@ -34,65 +34,54 @@
       <ul class="sidebar-menu">
         <li class="header">CRM Beheer</li>
 
-        <!-- section  -->
-        <li class="treeview">
-          <a href="#"><i class="ion ion-university"></i> <span>Leden</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ URL::to("cms/members") }}"><i class="fa fa-circle-o text-orange"></i> Leden </a></li>
-            <li><a href="{{ URL::to("cms/non-members") }}"><i class="fa fa-circle-o text-orange"></i> Niet-leden </a></li>
-            <li><a href="{{ URL::to("cms/registrations") }}"><i class="fa fa-circle-o text-orange"></i> Aanmeldingen </a></li>
-
-            <!-- <li style="padding-left:15px;padding-top:10px;padding-bottom:5px;"><strong><a href="#">Pagina's</a></strong></li> -->
-          </ul>
-        </li>
-        <!-- end of section -->
+        <!-- Members, non-members and registrations -->
+        @include('cms.navigation.navigation-dropdown', [
+          'title' => "Leden",
+          'linkGroup' => [
+            [
+              'cms/members' => 'Leden',
+              'cms/non-members' => 'Onbetaalde leden',
+              'cms/registrations' => 'Aanmeldingen',
+            ]
+          ]
+        ])
 
         <li class="header">Website beheer</li>
-        <!-- Optionally, you can add icons to the links -->
-        <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
+
+        <!--  pages and sections -->
+        @include('cms.navigation.navigation-dropdown', [
+          'title' => "Pagina's",
+          'linkGroup' => [
+            [
+              'header' => "Pagina's",
+              'cms/pages' => 'Overzicht',
+              'cms/pages/create' => 'Toevoegen',
+            ],
+            [
+              'header' => 'Secties',
+              'cms/pageSections' => 'Overzicht',
+              'cms/pageSections/create' => 'Toevoegen',
+            ]
+          ]
+        ])
 
 
-        <!-- section  -->
-        <li class="treeview">
-          <a href="#"><i class="fa fa-files-o"></i> <span>Pagina's</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="header text-light-blue">Pagina's</li>
-            <li><a href="{{ URL::to("cms/pages") }}"><i class="fa fa-circle-o text-orange"></i> Overzicht </a></li>
-            <li><a href="{{ URL::to("cms/pages/create") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
-
-            <li class="header text-light-blue">Secties</li>
-            <li><a href="{{ URL::to("cms/pageSections") }}"><i class="fa fa-circle-o text-orange"></i> Overzicht </a></li>
-            <li><a href="{{ URL::to("cms/pageSections") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
-          </ul>
-        </li>
-        <!-- end of section -->
-
-        <!-- section  -->
-        <li class="treeview">
-          <a href="#"><i class="ion ion-person-stalker"></i> <span>Besturen</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="header text-light-blue">Besturen</li>
-            <li><a href="{{ URL::to("cms/boards") }}"><i class="fa fa-circle-o text-orange"></i> Overzicht </a></li>
-            <li><a href="{{ URL::to("cms/boards/create") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
-
-            <li class="header text-light-blue">Bestuursleden</li>
-            <li><a href="{{ URL::to("cms/boardMembers") }}"><i class="fa fa-circle-o text-orange"></i> Overzicht </a></li>
-            <li><a href="{{ URL::to("cms/boardMembers/create") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
-          </ul>
-        </li>
-        <!-- end of section -->
+        <!--  Boards and boardmembers -->
+        @include('cms.navigation.navigation-dropdown', [
+          'title' => "Besturen",
+          'linkGroup' => [
+            [
+              'header' => "Besturen",
+              'cms/boards' => 'Overzicht',
+              'cms/boards/create' => 'Toevoegen',
+            ],
+            [
+              'header' => 'Bestuursleden',
+              'cms/boardMembers' => 'Overzicht',
+              'cms/boardmembers/create' => 'Toevoegen',
+            ]
+          ]
+        ])
 
         <!-- section  -->
         <li class="treeview">

@@ -6,12 +6,25 @@ use Image;
 
 class ImageCropper
 {
-	private $image;
+	public $image;
 
-	public static function make($image)
+	public function crop($width, $height, $x, $y)
+	{
+		$this->percentageCrop(
+			$width,
+			$height, [
+				$x,
+				$y
+			]
+		);
+
+		return $this;
+	}
+
+	public static function make($photo)
 	{
 		$imageCropper = new Self;
-		$imageCropper->image = Image::make(file_get_contents($image));
+		$imageCropper->image = Image::make(file_get_contents($photo->dir() . $photo->filename));
 		return $imageCropper;
 	}
 

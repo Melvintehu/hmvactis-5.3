@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Auth;
 use App\Profile;
-          
+
     $profiel = Profile::where('user_id', '=', Auth::id())->get();
 ?>
 
@@ -24,6 +24,11 @@ use App\Profile;
         <link rel="stylesheet" type="text/css" href="../css/animate.css">
 
     </head>
+    <script>
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
+</script>
     <body>
 
             @include('partials.header')
@@ -33,12 +38,13 @@ use App\Profile;
               @yield('content')
             </div>
             @include('partials.footer')
-        <script type="text/javascript" src="/js/app.js"></script>    
+
+        <script type="text/javascript" src="/js/app.js"></script>
       <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src='../../js/jquery.countdown.min.js'> </script>   
+        <script src='../../js/jquery.countdown.min.js'> </script>
         <script type="text/javascript" src="../js/jquery.bxslider.js"></script>
-            
+
         <script type="text/javascript">
          $('#clock').countdown('2016/05/30', function(event) {
            var $this = $(this).html(event.strftime(''
@@ -66,21 +72,18 @@ use App\Profile;
 
      </script>
 
+
         <script src="/js/imgcentering.js"></script>
          <script type="text/javascript">
         $(document).ready( function() {
-
             $(".imageCentered img").imgCentering();
-        }); 
+        });
         </script>
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="../js/wow.min.js"></script>
         <script>
             new WOW().init();
         </script>
-
-        
-
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

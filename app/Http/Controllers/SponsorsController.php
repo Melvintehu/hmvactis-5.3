@@ -26,7 +26,7 @@ class SponsorsController extends Controller
 
     public function overzicht(){
          $data = [
-            'pageSection' => PageSection::where('id', 6)->first(), 
+            'pageSection' => PageSection::where('id', 6)->first(),
             'hoofdpartners' => Sponsor::where('main_partner', 'ja')->get(),
             'partners' => Sponsor::where('main_partner','nee')->where('no_sponsor', 'nee')->get(),
             ];
@@ -64,9 +64,15 @@ class SponsorsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {
+
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'sponsor']
+        ])->first();
+
         $sponsor = Sponsor::find($id);
-        return view('cms.pages.sponsors.update', compact('sponsor'));
+        return view('cms.pages.sponsors.update', compact('sponsor', 'photo'));
     }
 
     /**
@@ -109,7 +115,7 @@ class SponsorsController extends Controller
     }
 
     public function addPhoto($id, Request $request)
-    {   
+    {
 
         // check of er een foto bestaat voor dit nieuws id
         $sponsor = Sponsor::findOrFail($id);
@@ -122,19 +128,19 @@ class SponsorsController extends Controller
             $photos->first()->delete();
         }
 
-        // create a new photo    
+        // create a new photo
         $photo = $this->makePhoto($request->file('file'));
 
 
         $sponsor->addPhoto($photo);
-        
+
         return 'done';
     }
 
 
     public function makePhoto($file)
     {
-        
+
         return Photo::named($file->getClientOriginalName(), 'partners')
             ->setThumbnailDimensions(250,150)
             ->move($file);

@@ -27,18 +27,18 @@
                                                 <tbody>
                                                     @foreach($pages as $page)
                                                     <tr>
-                                                        <td>{{ $page->id }}</td>
-                                                        <td>{{ $page-> title }}</td>
-                                                        <td >
+                                                                                                                <td >
                                                             {!! Form::open(['method' => 'delete', 'action' => [ 'PagesController@destroy',  $page->id ]  ]) !!}
                                                                 @include('cms.pages.partials.delete_form', ['submitButtonText' => 'X' ])
                                                             {!! Form::close() !!}
-                                                        </td>
-                                                        <td >
+
                                                             {!! Form::open(['method' => 'GET', 'action' => [                             'PagesController@show',  $page->id ]  ]) !!}
                                                                 @include('cms.pages.partials.update_form')
                                                             {!! Form::close() !!}
                                                         </td>
+
+                                                        <td>{{ $page->id }}</td>
+                                                        <td>{{ $page-> title }}</td>
                                                     </tr>
                                                     @endForeach
                                                 </tbody>

@@ -20,23 +20,19 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
+                                                        <th></th>
+                                                        <th></th>
                                                         <th>#</th>
                                                         <th>Titel</th>
                                                         <th>Beschrijving</th>
                                                         <th>Publiceer datum</th>
                                                         <th>Datum toegevoegd</th>
-                                                        <th style='color:red'> X </th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach($data['news'] as $newsmessage)
                                                     <tr>
-                                                        <td>{{ $newsmessage->id }}</td>
-                                                        <td>{{ $newsmessage->title }}</td>
-                                                        <td>{{ $newsmessage->description }}</td>
-                                                        <td>{{ $newsmessage->publish_date }}</td>
-                                                        <td>{{ $newsmessage->date_added }}</td>
                                                         <td >
                                                             {!! Form::open(['method' => 'delete', 'action' => [                             'NewsController@destroy',  $newsmessage->id ]  ]) !!}
                                                                 @include('cms.pages.partials.delete_form', ['submitButtonText' => '<i class="fa fa-times"> </i>' ])
@@ -47,6 +43,11 @@
                                                                 @include('cms.pages.partials.update_form')
                                                             {!! Form::close() !!}
                                                         </td>
+                                                        <td>{{ $newsmessage->id }}</td>
+                                                        <td>{{ $newsmessage->title }}</td>
+                                                        <td>{{ $newsmessage->description }}</td>
+                                                        <td>{{ $newsmessage->publish_date }}</td>
+                                                        <td>{{ $newsmessage->date_added }}</td>
                                                     </tr>
                                                     @endForeach
                                                 </tbody>

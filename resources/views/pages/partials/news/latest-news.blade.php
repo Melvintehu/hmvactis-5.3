@@ -16,19 +16,10 @@
 								<span class="text-color-light" >{{  $nieuwsmessage->publish_date->formatLocalized(' %d %B %Y') }}  </span>
 							</div>
 							<div class="image">
-
-							@if($nieuwsmessage->photos->first()['thumbnail_path'] != null)
-
-								<img class="" src="{{$nieuwsmessage->photos->first()['thumbnail_path']}}">
-
-							@elseif($nieuwsmessage->photos->first()['path'] != null)
-
-								<img class="" src="{{$nieuwsmessage->photos->first()['path']}}">
-
+							@if($nieuwsmessage->photo() != null)
+								<img src="{{ $nieuwsmessage->thumbnail }}">
 							@else
-
 								<img class="height-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
-
 							@endif
 
 							</div>

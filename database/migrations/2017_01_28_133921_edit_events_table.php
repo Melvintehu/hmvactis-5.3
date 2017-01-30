@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotosTable extends Migration
+class EditEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +13,8 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('path');
-            $table->string('type');
-
-
-
-            $table->timestamps();
+        Schema::table('events', function (Blueprint $table) {
+            //
         });
     }
 
@@ -30,6 +25,8 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photos');
+        Schema::table('events', function (Blueprint $table) {
+            //
+        });
     }
 }

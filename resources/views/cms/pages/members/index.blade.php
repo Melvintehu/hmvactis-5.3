@@ -31,7 +31,7 @@
             <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Aanmeldingen</h3>
+              <h3 class="box-title">Leden</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -48,6 +48,7 @@
               <table class="table table-hover">
                 <tbody><tr>
                   @include('cms.pages.members.partials.table', compact('users'))
+
               </tbody></table>
             </div>
             <!-- /.box-body -->

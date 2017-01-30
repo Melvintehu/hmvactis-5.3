@@ -4,7 +4,7 @@
     <section class="content-header">
 
       <h1>
-        Niet-leden
+        Onbetaalde leden
         <small>Zijn gebruikers met alleen een account.</small>
       </h1>
 
@@ -31,7 +31,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Niet-leden</h3>
+              <h3 class="box-title">Onbetaalde leden</h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -50,21 +50,16 @@
               <table class="table table-hover">
                 <tbody>
                 <tr>
+                  <th></th>
+                  <th></th>
                   <th>Naam</th>
                   <th>Email </th>
                   <th>Account sinds</th>
-                  <th>Heeft admin rechten</th>
-                  <th></th>
-                  <td>PDF</td>
+                  <th>Admin / Maak Admin </th>
                 </tr>
 
                 @foreach($users as $user)
                 <tr>
-                    <td> {{ $user->name }} </td>
-                    <td> {{ $user->email }}  </td>
-                    <td> {{ $user->join_date }} </td>
-                    <td> {{ $user->admin_rights }} </td>
-
                     <!--action  buttons for members -->
                     <td>
                         {!! Form::open(['method' => 'GET', 'action' => ['NonMembersController@show',  $user->id ]  ]) !!}
@@ -77,7 +72,11 @@
                             <button class="btn btn-primary"> <i class="ion ion-archive"> </i></button>
                         {!! Form::close() !!}
                     </td>
+                    <td> {{ $user->name }} </td>
+                    <td> {{ $user->email }}  </td>
+                    <td> {{ $user->join_date }} </td>
 
+                    @include('cms.admin.controls')
                 </tr>
 
                 @endforeach

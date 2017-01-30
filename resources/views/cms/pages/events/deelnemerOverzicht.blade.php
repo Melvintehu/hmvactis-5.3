@@ -7,11 +7,11 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-12"> 
+        <div class="col-lg-12">
+           <a href="../../events" class="btn btn-warning">Ga terug</a>
             <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                           <a href="../../events">Ga terug</a>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -21,7 +21,7 @@
                                                     <tr>
                                                         <th> # </th>
                                                         <th>Naam</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -31,7 +31,7 @@
                                                     <tr>
                                                          <td>{{ $i }}</td>
                                                          <td> {{ $user->name }} </td>
-                                                        
+
                                                         <?php $i++; ?>
                                                     </tr>
                                                     @endForeach
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div> <!-- End row -->
-               
+
         </div>
     </div>
 @stop

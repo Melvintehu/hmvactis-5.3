@@ -15,6 +15,19 @@ class Sponsor extends Model
         'no_sponsor'
     ];
 
+    public function photo() {
+        return Photo::where([
+            ['model_id', $this->id],
+            ['type', 'sponsor'],
+        ])->first();
+    }
+
+    public function getThumbnailAttribute()
+    {
+        return "/images/sponsor/{$this->id}/16x9/{$this->photo()->filename}";
+    }
+
+
     public static function otherPartners()
     {
         return Sponsor::where('main_partner','nee')->get();

@@ -20,57 +20,16 @@ class Photo extends Model
 		'model_id',
 	];
 
-	public static function getByRequest($request)
-	{
-		$photo = json_decode( $request->get('photo') );
-		$photo = Photo::find($photo->id);
-		return $photo;
-	}
-
-	public function crop($width, $height, $x, $y)
-	{
-		ImageCropper::make($this->dir() . $this->filename)
-			->percentageCrop(
-				$width,
-				$height, [
-					$x,
-					$y
-				])
-			->save($this->croppedDir() . $this->filename);
-	}
-
-	public function croppedDir()
-	{
-		$dir = 'images/' . $this->type . '/' . $this->model_id . '/cropped/';
-
-		return $dir;
-	}
 
 	public function dir()
 	{
 		$dir = 'images/' . $this->type . '/';
-
-		if(!is_dir($dir)) {
-			mkdir($dir);
-			mkdir($dir . $this->model_id . '/');
-			mkdir($dir . $this->model_id . '/cropped/');
-		}
+		Self::checkDirectory($dir);
 
 		$dir .= $this->model_id . '/';
+		Self::checkDirectory($dir);
+
 		return $dir;
-	}
-
-	private static function checkMigration()
-	{
-		if(!Schema::hasTable('photos')) {
-			$process = new Process('php artisan migrate');
-			$process->setWorkingDirectory(base_path());
-			$process->run();
-
-			if (!$process->isSuccessful()) {
-			    throw new ProcessFailedException($process);
-			}
-		}
 	}
 
 	private static function uniqueFilename($file)
@@ -78,16 +37,26 @@ class Photo extends Model
 		return Carbon::now()->toDateString() . ' ' .Carbon::now()->second . '-' . $file->getClientOriginalName();
 	}
 
-	public static function forModel($type, $model_id, $file)
+	public static function checkDirectory($dir)
 	{
-		// Self::checkMigration();
-		$filename = Self::uniqueFilename($file);
+		if(!is_dir($dir)) {
+			mkdir($dir);
+		}
+	}
 
-        $photo = Photo::where([
+	public static function exists($type, $model_id)
+	{
+		return Photo::where([
             'type' => $type,
             'model_id' => $model_id
         ])->first();
+	}
 
+	public static function makeOrUpdate($type, $model_id, $filename)
+	{
+		$photo = Self::exists($type, $model_id);
+
+		// if photo is null
         if($photo === null) {
             $photo = Photo::create([
 	            'filename' => $filename,
@@ -95,17 +64,55 @@ class Photo extends Model
                 'model_id' => $model_id
             ]);
         }else{
+        	// else delete the reference
             if(file_exists($photo->dir() . $photo->filename)){
                 File::delete($photo->dir() . $photo->filename);
-                File::delete($photo->croppedDir() . $photo->filename);
             }
+
+            // set new filename
+            // update photo
             $photo->filename = $filename;
             $photo->update();
         }
+        return $photo;
+	}
 
+	public static function forModel($type, $model_id, $file)
+	{
+		// Self::checkMigration();
+		$filename = Self::uniqueFilename($file);
+
+		$photo = Photo::makeOrUpdate(
+			$type,
+			$model_id,
+			$filename
+		);
+
+        // save the image
+		// checks if the directory exists  else makes that directory
+        Self::checkDirectory($photo->dir());
         Image::make($file)->save($photo->dir() . $photo->filename);
 
 		return $photo;
 	}
+
+	// 1. run composer
+	// 2. run npm
+	// 3. todo make migrations
+	// 4. run migration
+
+
+	// private static function checkMigration()
+	// {
+	// 	if(!Schema::hasTable('photos')) {
+	// 		$process = new Process('php artisan migrate');
+	// 		$process->setWorkingDirectory(base_path());
+	// 		$process->run();
+
+	// 		if (!$process->isSuccessful()) {
+	// 		    throw new ProcessFailedException($process);
+	// 		}
+	// 	}
+	// }
 
 }

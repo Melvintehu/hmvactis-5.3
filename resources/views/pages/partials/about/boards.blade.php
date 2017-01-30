@@ -16,8 +16,8 @@
 							<h5> {{ $boardMember->study }} </h5>
 						</div>
 						<div class="image round">
-							@if($boardMember->photos->first()['path'] != null)
-								<img class="img-responsive" src="{{$boardMember->photos->first()['path']}}">
+							@if($boardMember->photo() != null)
+								<img class="img-responsive" src="{{$boardMember->thumbnail}}">
 							@else
 								<img class="width-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 							@endif

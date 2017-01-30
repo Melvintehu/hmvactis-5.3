@@ -28,7 +28,11 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-
+<script>
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
+</script>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -154,7 +158,7 @@
               <!-- The user image in the navbar-->
               <img src="/images/user_icon.png" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+              <span style="min-width: 150px;" class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -211,7 +215,8 @@
     <!-- Main content -->
     <section class="content">
 
-    @yield('content')
+      @yield('content')
+
       <!-- Your Page Content Here -->
 
     </section>
@@ -317,6 +322,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="/js/app.js"></script>
 
+@yield('scripts')
 
 </body>
 </html>

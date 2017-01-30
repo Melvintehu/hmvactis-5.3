@@ -21,6 +21,21 @@ class News extends Model
    		'description',
    	];
 
+
+    public function photo() {
+        return Photo::where([
+            ['model_id', $this->id],
+            ['type', 'news'],
+        ])->first();
+    }
+
+    public function getThumbnailAttribute()
+    {
+        return "/images/news/{$this->id}/16x9/{$this->photo()->filename}";
+    }
+
+
+
     public static function latest($limit)
     {
       return self::orderBy('publish_date', 'desc')->take($limit)->get();

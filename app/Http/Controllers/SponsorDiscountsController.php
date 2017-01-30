@@ -43,7 +43,7 @@ class SponsorDiscountsController extends Controller
     public function create()
     {
 
-        $sponsors = Sponsor::lists('name', 'id');
+        $sponsors = Sponsor::pluck('name', 'id');
 
         return view('cms.pages.sponsorDiscounts.create', compact('sponsors'));
     }
@@ -67,19 +67,30 @@ class SponsorDiscountsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
-        $sponsors = Sponsor::lists('name', 'id');
+    {
+
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'sponsor-discount']
+        ])->first();
+
+        $sponsors = Sponsor::pluck('name', 'id');
         $sponsorDiscount = SponsorDiscount::find($id);
-        return view('cms.pages.sponsorDiscounts.update', compact('sponsors', 'sponsorDiscount'));
+        return view('cms.pages.sponsorDiscounts.update', compact('sponsors', 'sponsorDiscount', 'photo'));
     }
 
     /**
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'sponsor-discount']
+        ])->first();
+
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+   public function edit($id)
     {
         //
     }
@@ -113,7 +124,7 @@ class SponsorDiscountsController extends Controller
     }
 
     public function addPhoto($id, Request $request)
-    {   
+    {
 
         // check of er een foto bestaat voor dit nieuws id
         $sponsorDiscount = SponsorDiscount::findOrFail($id);
@@ -126,19 +137,19 @@ class SponsorDiscountsController extends Controller
             $photos->first()->delete();
         }
 
-        // create a new photo    
+        // create a new photo
         $photo = $this->makePhoto($request->file('file'));
 
 
         $sponsorDiscount->addPhoto($photo);
-        
+
         return 'done';
     }
 
 
     public function makePhoto($file)
     {
-        
+
         return Photo::named($file->getClientOriginalName(), 'kortingen')
             ->setThumbnailDimensions(250,150)
             ->move($file);

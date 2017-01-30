@@ -52,106 +52,19 @@
                 </div>
 
             </div> <!-- End row -->
-
-
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <div class="panel panel-default">
-
-                        <div class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <div class="table-responsive">
-
-                                        <table class="table table-hover">
-
-                                            <tbody>
-                                               @foreach($news->photos as $photo)
-                                                <td>
-
-                                                    <div id='newsPhoto' class="col-lg-3">    <img  src="../../{{ $photo->thumbnail_path }}"> </div>
-
-                                                </td>
-                                                @endforeach
-
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div> <!-- End row -->
-
-            <image-cropper> </image-cropper>
-
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <h1>Foto beheren </h1>
-
-                    <hr>
-
-                    <div class="panel panel-default">
-
-                        <div  class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <div class="table-responsive">
-
-                                        <table class="table">
-
-                                            <tbody>
-
-                                                <tr>
-
-                                                    <td>
-<!--                                                         <form  enctype="multipart/form-data" action='/cms/news/{{ $news->id }}/photos' method="POST" id="PhotoUpload" class="dropzone" >
-                                                            {{ csrf_field() }}
-                                                        </form>
- -->
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div> <!-- End row -->
-
+            <div id="app">
+                @if($photo != null)
+                <image-display
+                    id="{{$photo->id}}"
+                    model_id="{{$photo->model_id}}"
+                    type="{{$photo->type}}"
+                    filename="{{$photo->filename}}">
+                </image-display>
+                @endif
+                <image-uploader route="photo" model_id="{{$news->id}}" type="news" >
+                    <cropper route="cropper" aspectheight="9" aspectwidth="16" > </cropper>
+                </image-uploader>
+            </div>
 
         </div> <!--  outer column end -->
 
@@ -161,7 +74,5 @@
 
 
 @section('scripts')
-
-<!-- <script type="text/javascript" src="../../js/app.js"></script> -->
-
+<script type="text/javascript" src="/js/vue.js"></script>
 @stop

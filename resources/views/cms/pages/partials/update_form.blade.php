@@ -1,8 +1,7 @@
 
 
 <!-- form submit button -->
-<div class='form-group'>
 
-   <button style='border:none;background:none;'> <i class="fa fa-pencil-square-o"></i> </button>
 
-</div>
+   <button  style="display:inline-block;float:left;margin:3px;" class="btn btn-primary"> <i class="fa fa-pencil-square-o"></i> </button>
+

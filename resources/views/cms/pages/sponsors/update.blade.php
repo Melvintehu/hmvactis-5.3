@@ -7,18 +7,18 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-12"> 
-            
+        <div class="col-lg-12">
+
             <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                           
+
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="table-responsive">
                                             <table class="table table-hover">
-                                                
+
                                                 <tbody>
                                                    {!! Form::model($sponsor, ['method' => 'PUT', 'action' => ['SponsorsController@update', $sponsor->id] ]) !!}
                                                         @include('cms.pages.sponsors.partials.form', ['submitButtonText' => 'Aanpassen' ])
@@ -31,101 +31,22 @@
                             </div>
                         </div>
                     </div>
+                    <div id="app">
+                        @if($photo != null)
+                        <image-display
+                            id="{{$photo->id}}"
+                            model_id="{{$photo->model_id}}"
+                            type="{{$photo->type}}"
+                            filename="{{$photo->filename}}">
+                        </image-display>
+                        @endif
+                        <image-uploader route="photo" model_id="{{$sponsor->id}}" type="sponsor" >
+                            <cropper route="cropper" aspectheight="9" aspectwidth="16" > </cropper>
+                        </image-uploader>
+                    </div>
                 </div> <!-- End row -->
-                   <div class="row">
-
-                <div class="col-md-12">
-
-                    <div class="panel panel-default">
-                       
-                        <div class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <div class="table-responsive">
-
-                                        <table class="table table-hover">
-                                            
-                                            <tbody>
-                                               @foreach($sponsor->photos as $photo)
-                                                <td>
-
-                                                    <div id='newsPhoto' class="col-lg-3">    <img  src="../../{{ $photo->thumbnail_path }}"> </div>
-
-                                                </td>
-                                                @endforeach
-
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div> <!-- End row -->
 
 
-            
-            <div class="row">
-
-                <div class="col-md-12">
-
-                    <h1>Foto beheren </h1>
-
-                    <hr>
-
-                    <div class="panel panel-default">
-                       
-                        <div  class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                    <div class="table-responsive">
-
-                                        <table class="table">
-                                            
-                                            <tbody>
-
-                                                <tr>
-
-                                                    <td>
-
-                                                        <form  enctype="multipart/form-data" action='/cms/sponsor/{{ $sponsor->id }}/photos' method="POST" id="PhotoUpload" class="dropzone" >
-                                                            {{ csrf_field() }}
-                                                        </form>
-
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
             </div> <!-- End row -->
         </div>
@@ -133,36 +54,5 @@
 @stop
 
 @section('scripts')
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/dropzone.js"></script>
-<script >
-Dropzone.options.PhotoUpload = {
-  maxFilesize: 5,
-  accept: function(file, done) {
-    console.log("uploaded");
-    done();
-  },
-  init: function() {
-    this.on("addedfile", function() {
-      if (this.files[1]!=null){
-        this.removeFile(this.files[0]);
-      }
-    });
-  }
-};
-
-Dropzone.options.myAwesomeDropzone = {
-  paramName: "file", // The name that will be used to transfer the file
-  maxFilesize: 2, // MB
-  accept: function(file, done) {
-    if (file.name == "justinbieber.jpg") {
-      done("Naha, you don't.");
-    }
-    else { done(); }
-  }
-};
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.min.js"></script>
-<script type="text/javascript" src="../../js/app.js"></script>
-
+<script type="text/javascript" src="/js/vue.js"></script>
 @stop

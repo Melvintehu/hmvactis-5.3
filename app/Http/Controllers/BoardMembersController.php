@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
+
 
 use Illuminate\Http\Request;
 
@@ -17,6 +17,7 @@ class BoardMembersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
+
          $data = [
             'board' => Board::all(),
             'boardMembers' => BoardMember::all(),
@@ -44,6 +45,7 @@ class BoardMembersController extends Controller
      */
     public function store(Request $request)
     {
+
          BoardMember::create($request->all());
          return redirect('cms/boardMembers');
     }
@@ -54,13 +56,9 @@ class BoardMembersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function test(BoardMember $boardMember)
     {
-
-
-        $boardMember = BoardMember::find($id);
-        $boards = Board::pluck('name', 'id');
-        return view('cms.pages.boardMembers.update', compact('boardMember', 'boards' ));
+        dd($boardMember);
     }
 
     /**
@@ -71,7 +69,15 @@ class BoardMembersController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'board-member']
+        ])->first();
+
+        $boardMember = BoardMember::find($id);
+        $boards = Board::pluck('name', 'id');
+        return view('cms.pages.boardMembers.update', compact('boardMember', 'boards', 'photo' ));
     }
 
     /**
@@ -83,6 +89,7 @@ class BoardMembersController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $boardMember = BoardMember::findOrFail($id);
         $boardMember->update($request->all());
 
@@ -97,43 +104,12 @@ class BoardMembersController extends Controller
      */
     public function destroy($id)
     {
+
         $boardMember = BoardMember::find($id);
         $boardMember->delete();
         return redirect('cms/boardMembers');
     }
 
-    public function addPhoto($id, Request $request)
-    {
-
-        // check of er een foto bestaat voor dit nieuws id
-        $boardMember = BoardMember::findOrFail($id);
-
-        // indien er al een foto is, verwijder deze.
-        $photos = $boardMember->photos;
-
-            // dd($photos);
-        if(!$photos->isEmpty()){
-            $photos->first()->delete();
-        }
-
-        // create a new photo
-        $photo = $this->makePhoto($request->file('file'));
-
-
-        $boardMember->addPhoto($photo);
-
-        return 'done';
-    }
-
-
-    public function makePhoto($file)
-    {
-
-        return Photo::named($file->getClientOriginalName(), 'bestuursleden')
-            ->setThumbnailDimensions(250,150)
-            ->move($file);
-
-    }
 
 
 }

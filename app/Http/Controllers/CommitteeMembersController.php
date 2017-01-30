@@ -56,10 +56,15 @@ class CommitteeMembersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'committee-member']
+        ])->first();
+
         $committees = Committee::pluck('name', 'id');
         $committeeMember = CommitteeMember::find($id);
-        return view('cms.pages.committeeMembers.update', compact('committeeMember', 'committees'));
+        return view('cms.pages.committeeMembers.update', compact('committeeMember', 'committees', 'photo'));
     }
 
     /**
@@ -87,7 +92,7 @@ class CommitteeMembersController extends Controller
         $committeeMember = CommitteeMember::findOrFail($id);
         $committeeMember->update($request->all());
 
-        
+
         return redirect('cms/committeeMembers');
     }
 
@@ -108,7 +113,7 @@ class CommitteeMembersController extends Controller
     }
 
     public function addPhoto($id, Request $request)
-    {   
+    {
 
         // check of er een foto bestaat voor dit nieuws id
         $committeeMember = CommitteeMember::findOrFail($id);
@@ -121,19 +126,19 @@ class CommitteeMembersController extends Controller
             $photos->first()->delete();
         }
 
-        // create a new photo    
+        // create a new photo
         $photo = $this->makePhoto($request->file('file'));
 
 
         $committeeMember->addPhoto($photo);
-        
+
         return 'done';
     }
 
 
     public function makePhoto($file)
     {
-        
+
         return Photo::named($file->getClientOriginalName(), 'commissie_leden')
             ->setThumbnailDimensions(170,170)
             ->move($file);

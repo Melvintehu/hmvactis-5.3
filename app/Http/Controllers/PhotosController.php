@@ -38,7 +38,7 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-        return Photo::forModel('nieuws', 1, $request->file('file') );
+        return Photo::forModel($request->get('model_type'), $request->get('model_id'), $request->file('file') );
     }
 
     /**

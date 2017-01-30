@@ -119,8 +119,13 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'news']
+        ])->first();
+
         $news = News::find($id);
-        return view('cms.pages.news.update', compact('news'));
+        return view('cms.pages.news.update', compact('news', 'photo'));
     }
 
     /**

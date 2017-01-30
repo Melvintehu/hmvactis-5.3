@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-	
+
 	Partner kortingen
 
 @stop
@@ -28,19 +28,14 @@
 
 						<div class="card type-1 background-primary">
 
-							<div class="top background-accent"> 
-							
+							<div class="top background-accent">
+
 							</div>
 
 							<div class="image">
 
-								@if($korting->photos->first()['thumbnail_path'] != null)	
-
-									<img class="" src="{{$korting->photos->first()['thumbnail_path']}}">
-
-								@elseif($korting->photos->first()['path'] != null)	
-
-									<img class="" src="{{$korting->photos->first()['path']}}">
+								@if($korting->photo() != null)
+									<img class="" src="{{$korting->thumbnail}}">
 								@else
 									<img class="" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 
@@ -60,14 +55,14 @@
 
 					</a>
 
-				</div>		
+				</div>
 
 				@endforeach
 
-			</div>				
+			</div>
 
 		</div>
-		
+
 	</div>
 
 @stop

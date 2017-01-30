@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Board;
+use App\BoardMember;
 use App\Http\Requests;
 
 class BoardsController extends Controller
@@ -52,9 +53,11 @@ class BoardsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {
         $board = Board::find($id);
-        return view('cms.pages.boards.update', compact('board'));
+        $boardMembers = BoardMember::where('board_id', $id)->get();
+
+        return view('cms.pages.boards.update', compact('board', 'boardMembers'));
     }
 
     /**
@@ -65,7 +68,10 @@ class BoardsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $board = Board::find($id);
+        $boardMembers = BoardMember::where('board_id', $id)->get();
+
+        return view('cms.pages.boards.edit', compact('board', 'boardMembers'));
     }
 
     /**

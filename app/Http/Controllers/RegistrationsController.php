@@ -50,7 +50,9 @@ class RegistrationsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('cms.pages.registrations.show', compact('user'));
     }
 
     /**

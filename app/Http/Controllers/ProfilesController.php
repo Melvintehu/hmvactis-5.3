@@ -114,27 +114,19 @@ class ProfilesController extends Controller
 
     public function overzichtOudLeden()
     {
-
-
         $data = [
             'users' => Profile::onlyTrashed()->get(),
         ];
 
-
         return view('cms.pages.users.overzicht', compact('data'));
     }
 
-
     public function processUser($id)
     {
-
         $profile = Profile::where('user_id', $id)->first();
-
         $profile->processed = 1;
-
         $profile->save();
 
-        return redirect('cms/user');
-
+        return redirect('cms/members');
     }
 }

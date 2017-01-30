@@ -33,7 +33,7 @@ class PageSectionsController extends Controller
     public function create()
     {
 
-        
+
         $pages = Page::pluck('title', 'id');
 
 
@@ -59,10 +59,16 @@ class PageSectionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
+    {
+
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'section']
+        ])->first();
+
         $pages = Page::pluck('title', 'id');
         $pageSection = PageSection::find($id);
-        return view('cms.pages.pageSections.update', compact('pages', 'pageSection'));
+        return view('cms.pages.pageSections.update', compact('pages', 'pageSection', 'photo'));
     }
 
     /**
@@ -106,7 +112,7 @@ class PageSectionsController extends Controller
 
 
     public function addPhoto($id, Request $request)
-    {   
+    {
 
         // check of er een foto bestaat voor dit nieuws id
         $pageSection = PageSection::findOrFail($id);
@@ -118,15 +124,15 @@ class PageSectionsController extends Controller
         }
 
         $file =  $request->file('file');
-        
+
         $name = time() . $file->getClientOriginalName();
 
         $file->move('application-photos/secties/photos', $name);
-           
-        // create a new photo    
+
+        // create a new photo
 
         $photo = Photo::create(['path' => "application-photos/secties/photos/{$name}"]);
-        
+
         $pageSection->photos()->attach($photo->id, ['type' => 'original']);
         return 'done';
     }

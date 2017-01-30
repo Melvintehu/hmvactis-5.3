@@ -4,17 +4,18 @@
 // cms routes
 Route::auth();
 
-Route::get('/crop', 'ImageHelperController@index');
+Route::get('/cropper', 'ImageHelperController@index');
+
 Route::resource('photo', 'PhotosController');
+
 
 Route::group(['prefix' => 'cms'],  function () {
     Route::group(['middleware' => ['auth']], function(){
-
         // crm related routes
+        Route::resource('admin', 'AdminController');
         Route::resource('members', 'MembersController');
         Route::resource('non-members', 'NonMembersController');
-        Route::get('/registrations', 'RegistrationsController@index');
-
+        Route::resource('registrations', 'RegistrationsController');
 
         Route::resource('news', 'NewsController');
         Route::resource('sponsorDiscounts', 'SponsorDiscountsController');
@@ -31,20 +32,12 @@ Route::group(['prefix' => 'cms'],  function () {
         Route::resource('profile', 'ProfilesController');
         Route::resource('user', 'UserController');
 
-        // photo upload routes
-        Route::post('/news/{id}/photos', 'NewsController@addPhoto');
-        Route::post('/event/{id}/photos', 'EventsController@addPhoto');
-        Route::post('/committeeMember/{id}/photos', 'CommitteeMembersController@addPhoto');
-        Route::post('/sponsor/{id}/photos', 'SponsorsController@addPhoto');
-        Route::post('/sponsorDiscount/{id}/photos', 'SponsorDiscountsController@addPhoto');
-        Route::post('/pageSection/{id}/photos', 'PageSectionsController@addPhoto');
-        Route::post('/boardMember/{id}/photos', 'BoardMembersController@addPhoto');
-        Route::post('/vacancie/{id}/photos', 'VacanciesController@addPhoto');
-
+        Route::post('boardMembers/{id}/photo', 'BoardMemberPhotosController@store');
         // get routes
         Route::get('/event/{id}/deelnemers', 'EventsController@displayDeelnemers');
         Route::get('/user/{id}/process-user', 'ProfilesController@processUser');
         Route::get('/pdf-generate/{slug}', 'PDFController@generate')->where(['slug' => '.*']);
+
         Route::get('/', function(){
             return view('cms.cms');
         });
