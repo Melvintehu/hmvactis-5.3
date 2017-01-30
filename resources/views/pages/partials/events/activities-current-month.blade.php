@@ -15,7 +15,7 @@
 				@foreach($events as $event)
 					<a class="btn-round block space-outside-sm" href="activiteit/{{ $event->id }}" >
 						<span class="circle circle-sm bg-main inline-block text-color-light "> > </span>
-						<span class="text-color-light"> {{ $event->date->day }}   </span> <p class="text-color-light"> - {{ $event->title }}  </p>
+						<span class="text-color-light"> {{ $event->day }}   </span> <p class="text-color-light"> - {{ $event->title }}  </p>
 					</a>
 				@endforeach
 

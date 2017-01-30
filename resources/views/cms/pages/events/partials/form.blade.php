@@ -49,7 +49,7 @@
         <div class="input-group-addon">
           <i class="fa fa-clock-o"></i>
         </div>
-        {!! Form::text('time', null, ['class' => 'form-control timepicker pull-right']) !!}
+        {!! Form::text('end_time', null, ['class' => 'form-control timepicker pull-right']) !!}
       </div>
       <!-- /.input group -->
     </div>

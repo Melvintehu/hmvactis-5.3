@@ -10,15 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
 
-	protected $dates = [
-		'date'
-	];
+    protected $dates = [
+        'date',
+    ];
 
     protected $fillable = [
     	'title',
     	'location',
     	'date',
     	'time',
+        'end_time',
     	'description',
     	'lustrum_event',
         'subscription'
@@ -31,12 +32,15 @@ class Event extends Model
         ])->first();
     }
 
+    public function getDayAttribute()
+    {
+        return $this->date->day;
+    }
+
     public function getThumbnailAttribute()
     {
         return "/images/event/{$this->id}/16x11/{$this->photo()->filename}";
     }
-
-
 
     public static function latestOfCurrentMonth($limit = 4)
     {
@@ -48,29 +52,8 @@ class Event extends Model
         return Auth::user()->events()->get();
     }
 
-
-    public function addPhoto(Photo $photo)
+    public function users()
     {
-
-
-      $this->photos()->attach($photo->id, ['type' => 'original']);
-
-
-      return $this->photos()->save($photo);
-
-    }
-
-    public function photos(){
-        return $this->belongsToMany('App\Photo')->withPivot('type')->withTimeStamps();
-    }
-
-
-    public function setMydateAttribute($date)
-    {
-        $this->attributes['date'] = Carbon::createFromFormat('Y/M/d', $date);
-    }
-
-    public function users(){
         return $this->belongsToMany('App\User')->withTimeStamps();
     }
 

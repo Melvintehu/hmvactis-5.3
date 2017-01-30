@@ -32,7 +32,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/cms';
 
     /**
      * Create a new authentication controller instance.
@@ -41,7 +41,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        
+
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
 
     }
@@ -54,7 +54,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-       
+
 
 
         if(isset($data['inschrijven'])){
@@ -109,9 +109,9 @@ class AuthController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {   
+    {
 
-        
+
         if(!Auth::check()){
 
             // gebruikers account aanmaken
@@ -131,13 +131,13 @@ class AuthController extends Controller
         {
             $user->events()->attach($data['event_id']);
         }
-        
+
         // gebruiker lid worden
 
         if(isset($data['inschrijven'])){
 
             $mail = new MailController();
-        
+
             $profile = new Profile();
 
             $profile->user_id = $user->id;

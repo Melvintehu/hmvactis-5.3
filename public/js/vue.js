@@ -63,703 +63,12 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 182);
+/******/ 	return __webpack_require__(__webpack_require__.s = 185);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 145:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__(161);
-
-Vue.component('image-display', __webpack_require__(193));
-Vue.component('image-uploader', __webpack_require__(176));
-Vue.component('cropper', __webpack_require__(175));
-
-new Vue({
-    el: '#app'
-});
-
-/***/ }),
-
-/***/ 158:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    props: {
-        route: "",
-        aspectheight: "",
-        aspectwidth: "",
-        dir: ""
-    },
-    data: function data() {
-        return {
-            image: null,
-            croppedImage: null,
-            cropper: null,
-            photo: null
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        this.photo = null;
-        Event.listen('imageCropped' + this.getId(), function (croppedImage) {
-            _this.croppedImage = croppedImage;
-        });
-
-        Event.listen('croppingImage' + this.getId(), function () {
-            _this.croppedImage = null;
-        });
-
-        Event.listen('setCropper', function (photo) {
-
-            _this.photo = null;
-            setTimeout(function () {
-                _this.photo = photo;
-            }, 200);
-            setTimeout(function () {
-                _this.setCropper();
-            }, 300);
-        });
-    },
-
-
-    methods: {
-        getImage: function getImage() {
-            return '/images/' + this.photo.type + '/' + this.photo.model_id + '/' + this.photo.filename + '?' + new Date().getTime();
-        },
-        getId: function getId() {
-            return this.route + this.aspectwidth + this.aspectheight;
-        },
-        getCroppedImage: function getCroppedImage() {
-            return '/' + this.croppedImage + '?' + new Date().getTime();
-        },
-        setCropper: function setCropper() {
-            var image = document.getElementById(this.getId());
-            console.log(image);
-
-            this.cropper = new Cropper(image, {
-                aspectRatio: this.aspectwidth / this.aspectheight
-            });
-        },
-        storePhoto: function storePhoto() {
-            var _this2 = this;
-
-            Event.fire('croppingImage' + this.getId());
-
-            var containerData = this.cropper.getContainerData();
-            var cropBoxData = this.cropper.getCropBoxData();
-
-            var imageWidth = containerData.width;
-            var imageHeight = containerData.height;
-
-            var cropWidth = cropBoxData.width;
-            var cropHeight = cropBoxData.height;
-
-            var cropCoordinateLeft = cropBoxData.left;
-            var cropCoordinateTop = cropBoxData.top;
-
-            // calculate percentages
-            var yPercentage = Math.round(100 / imageHeight * cropCoordinateTop) / 100;
-            var xPercentage = Math.round(100 / imageWidth * cropCoordinateLeft) / 100;
-            var cropHeightPercentage = Math.round(100 / imageHeight * cropHeight) / 100;
-            var cropWidthPercentage = Math.round(100 / imageWidth * cropWidth) / 100;
-
-            axios.get('/' + this.route + '?width=' + cropWidthPercentage + '&height=' + cropHeightPercentage + '&x=' + xPercentage + '&y=' + yPercentage + '&dir=' + this.aspectwidth + 'x' + this.aspectheight + '&photo=' + JSON.stringify(this.photo), {}).then(function (response) {
-                setTimeout(function () {
-                    Event.fire('imageCropped' + _this2.getId(), response.data.croppedImage);
-                });
-            });
-        }
-    }
-
-};
-
-/***/ }),
-
-/***/ 159:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = {
-    props: {
-        route: "",
-        model_id: "",
-        type: ""
-    },
-    data: function data() {
-        var _ref;
-
-        return _ref = {
-            image: null,
-            fileInput: null
-        }, _defineProperty(_ref, "image", null), _defineProperty(_ref, "croppedImage", null), _defineProperty(_ref, "cropper", null), _defineProperty(_ref, "displayCrop", false), _defineProperty(_ref, "photo", null), _ref;
-    },
-    created: function created() {},
-    mounted: function mounted() {
-        var _this = this;
-
-        Dropzone.options.myAwesomeDropzone = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 20, // MB
-            headers: { "X-CSRF-TOKEN": Laravel.csrfToken },
-            accept: function accept(file, done) {
-                done();
-            },
-            success: function success(file, response) {
-                _this.photo = null;
-
-                setTimeout(function () {
-                    _this.croppedImage = null;
-                    _this.photo = {
-                        id: response.id,
-                        filename: response.filename,
-                        type: response.type,
-                        model_id: response.model_id
-                    };
-                    setTimeout(function () {
-                        Event.fire('setCropper', _this.photo);
-                    }, 50);
-                }, 10);
-            }
-        };
-    },
-
-
-    methods: {}
-
-};
-
-/***/ }),
-
-/***/ 160:
-/***/ (function(module, exports) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Use this class if you want to make call to the API
- * @type {API}
- */
-window.API = new (function () {
-   function _class() {
-      _classCallCheck(this, _class);
-
-      this.vue = new Vue();
-      this.vue.data = {
-         data: null
-      };
-   }
-
-   _createClass(_class, [{
-      key: 'version',
-      value: function version() {
-         return '/api/v1/';
-      }
-   }, {
-      key: 'headers',
-      value: function headers() {
-         var headers = {
-            'Authorization': 'Bearer ' + Laravel.user.api_token,
-            'X-CSRF-TOKEN': Laravel.csrfToken
-         };
-         return headers;
-      }
-   }, {
-      key: 'removeFile',
-      value: function removeFile(id) {
-         console.log('removeFile', id);
-         this.delete('upload', id);
-      }
-   }, {
-      key: 'uploadURL',
-      value: function uploadURL() {
-         return 'upload';
-      }
-      /**
-       * Simple wrapper for vue upload
-       */
-
-   }, {
-      key: 'uploadImage',
-      value: function uploadImage(base, $parameters) {
-         return this.vue.$http.post(this.uploadURL, $parameters).then(function (response) {});
-      }
-   }, {
-      key: 'put',
-      value: function put(base, data, success) {
-         var failure = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-         return this.vue.$http.put(this.version() + base, data).then(function (response) {
-            success(response);
-         }, failure);
-      }
-      /**
-       * Simple wrapper for vue delete request
-       * @param  {[base]} api route
-       * @param  {[id]} object id
-       * @return {[void]}
-       */
-
-   }, {
-      key: 'delete',
-      value: function _delete(base, id) {
-         this.vue.$http.delete(this.version() + base + '/' + id, {}).then(function () {
-            Notifier.notify('success', 'Gelukt!', 'Verwijderd');
-         }, function () {
-            Notifier.notify('failed', 'Mislukt', 'Verwijderd');
-         });
-      }
-      /**
-       * Deletes an object from an array, if the object exists in the database
-       * a call to the api is made to delete that object in the database
-       * @param  {[type]}  object  [ The object to delete ]
-       * @param  {[type]}  array   [ The target array ]
-       * @param  {String}  apiCall [ The call to the api (/users, /customers, /projects)]
-       * @param  {Boolean} confirm [ Ask the user for confirmation ]
-       * @return {[boolean]}          [Return a boolean if succeeded or not]
-       */
-
-   }, {
-      key: 'deleteObjectFrom',
-      value: function deleteObjectFrom(object, array) {
-         var apiCall = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-         var confirm = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
-
-         if (!Helper.hasProperty(object, 'id')) {
-            Helper.removeFromArray(array, object);
-            return false;
-         }
-         if (confirm == true) {
-            this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
-               confirmButtonText: 'OK',
-               cancelButtonText: 'Cancel',
-               type: 'warning'
-            }).then(function () {
-               Helper.removeFromArray(array, object);
-               API.delete(apiCall, object.id);
-            }).catch(function () {});
-         } else {
-            Helper.removeFromArray(array, object);
-            API.delete(apiCall, object.id);
-         }
-      }
-      /**
-       * Simple wrapper for vue get request.
-       * @param  {[base]}
-       * @return {[vue http request]}
-       */
-
-   }, {
-      key: 'post',
-      value: function post(base, success) {
-         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-         var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
-         return this.vue.$http.post(this.version() + base, parameters).then(function (response) {
-            var data = JSON.parse(response.body);
-            success(data);
-         }, failure);
-      }
-      /**
-       * Simple wrapper for vue get request.
-       * @param  {[base]}
-       * @return {[vue http request]}
-       */
-
-   }, {
-      key: 'get',
-      value: function get(base, success) {
-         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-         var $parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
-         return this.vue.$http.get(this.version() + base, $parameters).then(function (response) {
-            var data = JSON.parse(response.body);
-            if (success.constructor === Array) {
-               success.forEach(function (callback) {
-                  callback(data);
-               });
-            } else {
-               success(data);
-            }
-         }, failure);
-      }
-   }]);
-
-   return _class;
-}())();
-
-/***/ }),
-
-/***/ 161:
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Load this file in your app.js to get access to Core classes
- */
-// Global Exception helper class
-__webpack_require__(165);
-// Helper class 
-__webpack_require__(167);
-// Global Api Helper class
-__webpack_require__(160);
-// Global Event dispatcher class
-__webpack_require__(164);
-// Global Notifier class
-__webpack_require__(169);
-// Global message class
-__webpack_require__(168);
-// Global datehelper class
-__webpack_require__(162);
-// Global formhelper class
-__webpack_require__(166);
-// Global date-picker class
-__webpack_require__(163);
-
-/***/ }),
-
-/***/ 162:
-/***/ (function(module, exports) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-window.DateHelper = new (function () {
-	function _class() {
-		_classCallCheck(this, _class);
-	}
-
-	_createClass(_class, [{
-		key: 'findMondayOfWeekAndYear',
-		value: function findMondayOfWeekAndYear(week, year) {
-			return moment().day("Monday").week(week).year(year);
-		}
-	}, {
-		key: 'setDate',
-		value: function setDate(date) {
-			this.date = moment(date);
-			return this;
-		}
-	}, {
-		key: 'getMonday',
-		value: function getMonday() {
-			this.date.startOf('isoweek').subtract(1, 'days');
-			return this;
-		}
-	}, {
-		key: 'getTuesday',
-		value: function getTuesday() {
-			this.getMonday().date.add(1, 'd');
-			return this;
-		}
-	}, {
-		key: 'getWednesday',
-		value: function getWednesday() {
-			this.getMonday().date.add(2, 'd');
-			return this;
-		}
-	}, {
-		key: 'getThursday',
-		value: function getThursday() {
-			this.getMonday().date.add(3, 'd');
-			return this;
-		}
-	}, {
-		key: 'getFriday',
-		value: function getFriday() {
-			this.getMonday().date.add(4, 'd');
-			return this;
-		}
-	}, {
-		key: 'getSaturday',
-		value: function getSaturday() {
-			this.getMonday().date.add(5, 'd');
-			return this;
-		}
-	}, {
-		key: 'getSunday',
-		value: function getSunday() {
-			this.getMonday().date.add(6, 'd');
-			return this;
-		}
-	}, {
-		key: 'getDate',
-		value: function getDate() {
-			return this.date;
-		}
-	}, {
-		key: 'format',
-		value: function format() {
-			var day = this.date;
-			var dag = day.get('date');
-			var month = day.get('month');
-			var year = day.get('year');
-
-			month = this.normalizeMonth(month);
-			dag = this.normalizeDay(dag);
-			return year + '-' + month + '-' + dag;
-		}
-	}, {
-		key: 'normalizeMonth',
-		value: function normalizeMonth(month) {
-			month += 1;
-			return month >= 10 ? month : '0' + month;
-		}
-	}, {
-		key: 'normalizeDay',
-		value: function normalizeDay(day) {
-			day += 1;
-			return day >= 10 ? day : '0' + day;
-		}
-	}]);
-
-	return _class;
-}())();
-
-/***/ }),
-
-/***/ 163:
-/***/ (function(module, exports) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Use this class if you want to make call to the API
- * @type {API}
- */
-window.DatePicker = new (function () {
-   function _class() {
-      _classCallCheck(this, _class);
-
-      this.vue = new Vue();
-      this.options = this.getPickerOptions();
-   }
-   /***
-    *  Set the picker from Elements to a certain day periode ( between dates )
-    */
-
-
-   _createClass(_class, [{
-      key: 'setPickerPeriod',
-      value: function setPickerPeriod(picker, days) {
-         var end = new Date();
-         var start = new Date();
-         start.setTime(start.getTime() - 3600 * 1000 * 24 * days);
-         picker.$emit('pick', [start, end]);
-      }
-   }, {
-      key: 'getPickerOptions',
-      value: function getPickerOptions() {
-         return {
-            shortcuts: [{
-               text: 'Afgelopen week',
-               onClick: function onClick(picker) {
-                  DatePicker.setPickerPeriod(picker, 7);
-               }
-            }, {
-               text: 'Afgelopen maand',
-               onClick: function onClick(picker) {
-                  DatePicker.setPickerPeriod(picker, 30);
-               }
-            }, {
-               text: 'Afgelopen 3 maanden',
-               onClick: function onClick(picker) {
-                  DatePicker.setPickerPeriod(picker, 90);
-               }
-            }, {
-               text: 'Afgelopen half jaar',
-               onClick: function onClick(picker) {
-                  DatePicker.setPickerPeriod(picker, 180);
-               }
-            }, {
-               text: 'Afgelopen jaar',
-               onClick: function onClick(picker) {
-                  DatePicker.setPickerPeriod(picker, 365);
-               }
-            }]
-         };
-      }
-   }]);
-
-   return _class;
-}())();
-
-/***/ }),
-
-/***/ 164:
-/***/ (function(module, exports) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Event dispatcher class, for emitting and listening for events.
- * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
- * @type {Event}
- */
-
-window.Event = new (function () {
-   function _class() {
-      _classCallCheck(this, _class);
-
-      this.vue = new Vue();
-   }
-
-   /**
-    * Method which can be used to fire events.
-    * @param  {[event]} the name of the event
-    * @param  {[data]} data to send with the event
-    * @return {[void]}
-    */
-
-
-   _createClass(_class, [{
-      key: 'fire',
-      value: function fire(event) {
-         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-         this.vue.$emit(event, data);
-      }
-
-      /**
-       * Method which can be used to listen to events.
-       * @param  {[event]} the name of the event
-       * @param  {callback} the callback function to execute
-       * @return {[void]}
-       */
-
-   }, {
-      key: 'listen',
-      value: function listen(event, callback) {
-         this.vue.$on(event, callback);
-      }
-
-      /**
-       * Method to start the loading screen
-       * @return {[void]}
-       */
-
-   }, {
-      key: 'startLoading',
-      value: function startLoading() {
-         Event.fire('loading_start');
-      }
-
-      /**
-       * Method to stop the loading screen
-       * @return {[void]}
-       */
-
-   }, {
-      key: 'stopLoading',
-      value: function stopLoading() {
-         setTimeout(function () {
-            Event.fire('loading_done');
-         }, 500);
-      }
-   }]);
-
-   return _class;
-}())();
-
-/***/ }),
-
-/***/ 165:
-/***/ (function(module, exports) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-window.Exception = new (function () {
-	function _class() {
-		_classCallCheck(this, _class);
-	}
-
-	_createClass(_class, [{
-		key: 'isType',
-		value: function isType(prop, type) {
-			if ((typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) !== type) {
-				console.log('Helper::hasProperty expects second argument to be of type .' + type + ' ' + (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) + ' found');
-				return false;
-			}
-			return true;
-		}
-	}]);
-
-	return _class;
-}())();
-
-/***/ }),
-
-/***/ 166:
+/***/ 10:
 /***/ (function(module, exports) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -869,7 +178,7 @@ window.Form = new (function () {
 
 /***/ }),
 
-/***/ 167:
+/***/ 11:
 /***/ (function(module, exports) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1031,7 +340,7 @@ window.Helper = new (function () {
 
 /***/ }),
 
-/***/ 168:
+/***/ 12:
 /***/ (function(module, exports) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1081,7 +390,7 @@ window.Messager = new (function () {
 
 /***/ }),
 
-/***/ 169:
+/***/ 13:
 /***/ (function(module, exports) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1156,10 +465,265 @@ window.Notifier = new (function () {
 
 /***/ }),
 
-/***/ 170:
+/***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(171)();
+__webpack_require__(5);
+
+Vue.component('image-display', __webpack_require__(176));
+Vue.component('image-uploader', __webpack_require__(177));
+Vue.component('cropper', __webpack_require__(175));
+
+new Vue({
+    el: '#app'
+});
+
+/***/ }),
+
+/***/ 163:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: {
+        route: "",
+        aspectheight: "",
+        aspectwidth: "",
+        dir: ""
+    },
+    data: function data() {
+        return {
+            image: null,
+            croppedImage: null,
+            cropper: null,
+            photo: null
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        this.photo = null;
+        Event.listen('imageCropped' + this.getId(), function (croppedImage) {
+            _this.croppedImage = croppedImage;
+        });
+
+        Event.listen('croppingImage' + this.getId(), function () {
+            _this.croppedImage = null;
+        });
+
+        Event.listen('setCropper', function (photo) {
+
+            _this.photo = null;
+            setTimeout(function () {
+                _this.photo = photo;
+            }, 200);
+            setTimeout(function () {
+                _this.setCropper();
+            }, 300);
+        });
+    },
+
+
+    methods: {
+        getImage: function getImage() {
+            return '/images/' + this.photo.type + '/' + this.photo.model_id + '/' + this.photo.filename + '?' + new Date().getTime();
+        },
+        getId: function getId() {
+            return this.route + this.aspectwidth + this.aspectheight;
+        },
+        getCroppedImage: function getCroppedImage() {
+            return '/' + this.croppedImage + '?' + new Date().getTime();
+        },
+        setCropper: function setCropper() {
+            var image = document.getElementById(this.getId());
+            console.log(image);
+
+            this.cropper = new Cropper(image, {
+                aspectRatio: this.aspectwidth / this.aspectheight
+            });
+        },
+        storePhoto: function storePhoto() {
+            var _this2 = this;
+
+            Event.fire('croppingImage' + this.getId());
+
+            var containerData = this.cropper.getContainerData();
+            var cropBoxData = this.cropper.getCropBoxData();
+
+            var imageWidth = containerData.width;
+            var imageHeight = containerData.height;
+
+            var cropWidth = cropBoxData.width;
+            var cropHeight = cropBoxData.height;
+
+            var cropCoordinateLeft = cropBoxData.left;
+            var cropCoordinateTop = cropBoxData.top;
+
+            // calculate percentages
+            var yPercentage = Math.round(100 / imageHeight * cropCoordinateTop) / 100;
+            var xPercentage = Math.round(100 / imageWidth * cropCoordinateLeft) / 100;
+            var cropHeightPercentage = Math.round(100 / imageHeight * cropHeight) / 100;
+            var cropWidthPercentage = Math.round(100 / imageWidth * cropWidth) / 100;
+
+            axios.get('/' + this.route + '?width=' + cropWidthPercentage + '&height=' + cropHeightPercentage + '&x=' + xPercentage + '&y=' + yPercentage + '&dir=' + this.aspectwidth + 'x' + this.aspectheight + '&photo=' + JSON.stringify(this.photo), {}).then(function (response) {
+                setTimeout(function () {
+                    Event.fire('imageCropped' + _this2.getId(), response.data.croppedImage);
+                });
+            });
+        }
+    }
+
+};
+
+/***/ }),
+
+/***/ 164:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: {
+        id: "",
+        model_id: "",
+        type: "",
+        filename: ""
+    },
+    mounted: function mounted() {
+
+        var photo = {
+            id: this.id,
+            model_id: this.model_id,
+            type: this.type,
+            filename: this.filename
+        };
+
+        Event.fire('setCropper', photo);
+    }
+};
+
+/***/ }),
+
+/***/ 165:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: {
+        route: "",
+        model_id: "",
+        type: ""
+    },
+    data: function data() {
+        var _ref;
+
+        return _ref = {
+            image: null,
+            fileInput: null
+        }, _defineProperty(_ref, "image", null), _defineProperty(_ref, "croppedImage", null), _defineProperty(_ref, "cropper", null), _defineProperty(_ref, "displayCrop", false), _defineProperty(_ref, "photo", null), _ref;
+    },
+    created: function created() {},
+    mounted: function mounted() {
+        var _this = this;
+
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 20, // MB
+            headers: { "X-CSRF-TOKEN": Laravel.csrfToken },
+            accept: function accept(file, done) {
+                done();
+            },
+            success: function success(file, response) {
+                _this.photo = null;
+
+                setTimeout(function () {
+                    _this.croppedImage = null;
+                    _this.photo = {
+                        id: response.id,
+                        filename: response.filename,
+                        type: response.type,
+                        model_id: response.model_id
+                    };
+                    setTimeout(function () {
+                        Event.fire('setCropper', _this.photo);
+                    }, 50);
+                }, 10);
+            }
+        };
+    },
+
+
+    methods: {}
+
+};
+
+/***/ }),
+
+/***/ 168:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(169)();
 // imports
 
 
@@ -1171,7 +735,7 @@ exports.push([module.i, "\nimg {\n    max-width: 100%;\n}\n", ""]);
 
 /***/ }),
 
-/***/ 171:
+/***/ 169:
 /***/ (function(module, exports) {
 
 /*
@@ -1235,10 +799,10 @@ var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
 /* script */
-__vue_exports__ = __webpack_require__(158)
+__vue_exports__ = __webpack_require__(163)
 
 /* template */
-var __vue_template__ = __webpack_require__(178)
+var __vue_template__ = __webpack_require__(180)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -1281,14 +845,61 @@ module.exports = __vue_exports__
 var __vue_exports__, __vue_options__
 var __vue_styles__ = {}
 
-/* styles */
-__webpack_require__(180)
-
 /* script */
-__vue_exports__ = __webpack_require__(159)
+__vue_exports__ = __webpack_require__(164)
 
 /* template */
-var __vue_template__ = __webpack_require__(177)
+var __vue_template__ = __webpack_require__(178)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "C:\\xampp\\htdocs\\MEN\\laravel 5.3 projecten\\hmvactis\\resources\\assets\\js\\components\\ImageDisplay.vue"
+if(typeof __vue_options__.name === "undefined") {
+  __vue_options__.name = "ImageDisplay"
+}__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54f72cde", __vue_options__)
+  } else {
+    hotAPI.reload("data-v-54f72cde", __vue_options__)
+  }
+})()}
+if (__vue_options__.functional && typeof __vue_template__ !== "undefined") {console.error("[vue-loader] ImageDisplay.vue: functional components are not supported with templates, they should use render functions.")}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+
+/***/ 177:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = {}
+
+/* styles */
+__webpack_require__(182)
+
+/* script */
+__vue_exports__ = __webpack_require__(165)
+
+/* template */
+var __vue_template__ = __webpack_require__(179)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -1325,7 +936,23 @@ module.exports = __vue_exports__
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div')
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-54f72cde", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1369,7 +996,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 178:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1427,7 +1054,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 179:
+/***/ 181:
 /***/ (function(module, exports) {
 
 /*
@@ -1650,16 +1277,16 @@ function applyToTag(styleElement, obj) {
 
 /***/ }),
 
-/***/ 180:
+/***/ 182:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(170);
+var content = __webpack_require__(168);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
+var update = __webpack_require__(181)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -1677,107 +1304,479 @@ if(false) {
 
 /***/ }),
 
-/***/ 182:
+/***/ 185:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(145);
+module.exports = __webpack_require__(132);
 
 
 /***/ }),
 
-/***/ 192:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 4:
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/* harmony default export */ __webpack_exports__["default"] = {
-    props: {
-        id: "",
-        model_id: "",
-        type: "",
-        filename: ""
-    },
-    mounted: function mounted() {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-        var photo = {
-            id: this.id,
-            model_id: this.model_id,
-            type: this.type,
-            filename: this.filename
-        };
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.API = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
 
-        Event.fire('setCropper', photo);
-    }
-};
+      this.vue = new Vue();
+      this.vue.data = {
+         data: null
+      };
+   }
+
+   _createClass(_class, [{
+      key: 'version',
+      value: function version() {
+         return '/api/v1/';
+      }
+   }, {
+      key: 'headers',
+      value: function headers() {
+         var headers = {
+            'Authorization': 'Bearer ' + Laravel.user.api_token,
+            'X-CSRF-TOKEN': Laravel.csrfToken
+         };
+         return headers;
+      }
+   }, {
+      key: 'removeFile',
+      value: function removeFile(id) {
+         console.log('removeFile', id);
+         this.delete('upload', id);
+      }
+   }, {
+      key: 'uploadURL',
+      value: function uploadURL() {
+         return 'upload';
+      }
+      /**
+       * Simple wrapper for vue upload
+       */
+
+   }, {
+      key: 'uploadImage',
+      value: function uploadImage(base, $parameters) {
+         return this.vue.$http.post(this.uploadURL, $parameters).then(function (response) {});
+      }
+   }, {
+      key: 'put',
+      value: function put(base, data, success) {
+         var failure = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+         return this.vue.$http.put(this.version() + base, data).then(function (response) {
+            success(response);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue delete request
+       * @param  {[base]} api route
+       * @param  {[id]} object id
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'delete',
+      value: function _delete(base, id) {
+         this.vue.$http.delete(this.version() + base + '/' + id, {}).then(function () {
+            Notifier.notify('success', 'Gelukt!', 'Verwijderd');
+         }, function () {
+            Notifier.notify('failed', 'Mislukt', 'Verwijderd');
+         });
+      }
+      /**
+       * Deletes an object from an array, if the object exists in the database
+       * a call to the api is made to delete that object in the database
+       * @param  {[type]}  object  [ The object to delete ]
+       * @param  {[type]}  array   [ The target array ]
+       * @param  {String}  apiCall [ The call to the api (/users, /customers, /projects)]
+       * @param  {Boolean} confirm [ Ask the user for confirmation ]
+       * @return {[boolean]}          [Return a boolean if succeeded or not]
+       */
+
+   }, {
+      key: 'deleteObjectFrom',
+      value: function deleteObjectFrom(object, array) {
+         var apiCall = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+         var confirm = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+         if (!Helper.hasProperty(object, 'id')) {
+            Helper.removeFromArray(array, object);
+            return false;
+         }
+         if (confirm == true) {
+            this.vue.$confirm('Weet u zeker dat u dit wilt verwijderen?', 'Warning', {
+               confirmButtonText: 'OK',
+               cancelButtonText: 'Cancel',
+               type: 'warning'
+            }).then(function () {
+               Helper.removeFromArray(array, object);
+               API.delete(apiCall, object.id);
+            }).catch(function () {});
+         } else {
+            Helper.removeFromArray(array, object);
+            API.delete(apiCall, object.id);
+         }
+      }
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'post',
+      value: function post(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return this.vue.$http.post(this.version() + base, parameters).then(function (response) {
+            var data = JSON.parse(response.body);
+            success(data);
+         }, failure);
+      }
+      /**
+       * Simple wrapper for vue get request.
+       * @param  {[base]}
+       * @return {[vue http request]}
+       */
+
+   }, {
+      key: 'get',
+      value: function get(base, success) {
+         var failure = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+         var $parameters = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+         return this.vue.$http.get(this.version() + base, $parameters).then(function (response) {
+            var data = JSON.parse(response.body);
+            if (success.constructor === Array) {
+               success.forEach(function (callback) {
+                  callback(data);
+               });
+            } else {
+               success(data);
+            }
+         }, failure);
+      }
+   }]);
+
+   return _class;
+}())();
 
 /***/ }),
 
-/***/ 193:
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __vue_exports__, __vue_options__
-var __vue_styles__ = {}
-
-/* script */
-__vue_exports__ = __webpack_require__(192)
-
-/* template */
-var __vue_template__ = __webpack_require__(194)
-__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-if (
-  typeof __vue_exports__.default === "object" ||
-  typeof __vue_exports__.default === "function"
-) {
-if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
-__vue_options__ = __vue_exports__ = __vue_exports__.default
-}
-if (typeof __vue_options__ === "function") {
-  __vue_options__ = __vue_options__.options
-}
-__vue_options__.__file = "C:\\xampp\\htdocs\\MEN\\laravel 5.3 projecten\\hmvactis\\resources\\assets\\js\\components\\ImageDisplay.vue"
-if(typeof __vue_options__.name === "undefined") {
-  __vue_options__.name = "ImageDisplay"
-}__vue_options__.render = __vue_template__.render
-__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-54f72cde", __vue_options__)
-  } else {
-    hotAPI.reload("data-v-54f72cde", __vue_options__)
-  }
-})()}
-if (__vue_options__.functional && typeof __vue_template__ !== "undefined") {console.error("[vue-loader] ImageDisplay.vue: functional components are not supported with templates, they should use render functions.")}
-
-module.exports = __vue_exports__
-
+/**
+ * Load this file in your app.js to get access to Core classes
+ */
+// Global Exception helper class
+__webpack_require__(9);
+// Helper class 
+__webpack_require__(11);
+// Global Api Helper class
+__webpack_require__(4);
+// Global Event dispatcher class
+__webpack_require__(8);
+// Global Notifier class
+__webpack_require__(13);
+// Global message class
+__webpack_require__(12);
+// Global datehelper class
+__webpack_require__(6);
+// Global formhelper class
+__webpack_require__(10);
+// Global date-picker class
+__webpack_require__(7);
 
 /***/ }),
 
-/***/ 194:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 6:
+/***/ (function(module, exports) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div')
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-54f72cde", module.exports)
-  }
-}
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.DateHelper = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'findMondayOfWeekAndYear',
+		value: function findMondayOfWeekAndYear(week, year) {
+			return moment().day("Monday").week(week).year(year);
+		}
+	}, {
+		key: 'setDate',
+		value: function setDate(date) {
+			this.date = moment(date);
+			return this;
+		}
+	}, {
+		key: 'getMonday',
+		value: function getMonday() {
+			this.date.startOf('isoweek').subtract(1, 'days');
+			return this;
+		}
+	}, {
+		key: 'getTuesday',
+		value: function getTuesday() {
+			this.getMonday().date.add(1, 'd');
+			return this;
+		}
+	}, {
+		key: 'getWednesday',
+		value: function getWednesday() {
+			this.getMonday().date.add(2, 'd');
+			return this;
+		}
+	}, {
+		key: 'getThursday',
+		value: function getThursday() {
+			this.getMonday().date.add(3, 'd');
+			return this;
+		}
+	}, {
+		key: 'getFriday',
+		value: function getFriday() {
+			this.getMonday().date.add(4, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSaturday',
+		value: function getSaturday() {
+			this.getMonday().date.add(5, 'd');
+			return this;
+		}
+	}, {
+		key: 'getSunday',
+		value: function getSunday() {
+			this.getMonday().date.add(6, 'd');
+			return this;
+		}
+	}, {
+		key: 'getDate',
+		value: function getDate() {
+			return this.date;
+		}
+	}, {
+		key: 'format',
+		value: function format() {
+			var day = this.date;
+			var dag = day.get('date');
+			var month = day.get('month');
+			var year = day.get('year');
+
+			month = this.normalizeMonth(month);
+			dag = this.normalizeDay(dag);
+			return year + '-' + month + '-' + dag;
+		}
+	}, {
+		key: 'normalizeMonth',
+		value: function normalizeMonth(month) {
+			month += 1;
+			return month >= 10 ? month : '0' + month;
+		}
+	}, {
+		key: 'normalizeDay',
+		value: function normalizeDay(day) {
+			day += 1;
+			return day >= 10 ? day : '0' + day;
+		}
+	}]);
+
+	return _class;
+}())();
+
+/***/ }),
+
+/***/ 7:
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Use this class if you want to make call to the API
+ * @type {API}
+ */
+window.DatePicker = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+      this.options = this.getPickerOptions();
+   }
+   /***
+    *  Set the picker from Elements to a certain day periode ( between dates )
+    */
+
+
+   _createClass(_class, [{
+      key: 'setPickerPeriod',
+      value: function setPickerPeriod(picker, days) {
+         var end = new Date();
+         var start = new Date();
+         start.setTime(start.getTime() - 3600 * 1000 * 24 * days);
+         picker.$emit('pick', [start, end]);
+      }
+   }, {
+      key: 'getPickerOptions',
+      value: function getPickerOptions() {
+         return {
+            shortcuts: [{
+               text: 'Afgelopen week',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 7);
+               }
+            }, {
+               text: 'Afgelopen maand',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 30);
+               }
+            }, {
+               text: 'Afgelopen 3 maanden',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 90);
+               }
+            }, {
+               text: 'Afgelopen half jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 180);
+               }
+            }, {
+               text: 'Afgelopen jaar',
+               onClick: function onClick(picker) {
+                  DatePicker.setPickerPeriod(picker, 365);
+               }
+            }]
+         };
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, exports) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Event dispatcher class, for emitting and listening for events.
+ * By using this class you can emit an event to any component in vue regardless of it being a child, parent or sibling.
+ * @type {Event}
+ */
+
+window.Event = new (function () {
+   function _class() {
+      _classCallCheck(this, _class);
+
+      this.vue = new Vue();
+   }
+
+   /**
+    * Method which can be used to fire events.
+    * @param  {[event]} the name of the event
+    * @param  {[data]} data to send with the event
+    * @return {[void]}
+    */
+
+
+   _createClass(_class, [{
+      key: 'fire',
+      value: function fire(event) {
+         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+         this.vue.$emit(event, data);
+      }
+
+      /**
+       * Method which can be used to listen to events.
+       * @param  {[event]} the name of the event
+       * @param  {callback} the callback function to execute
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'listen',
+      value: function listen(event, callback) {
+         this.vue.$on(event, callback);
+      }
+
+      /**
+       * Method to start the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'startLoading',
+      value: function startLoading() {
+         Event.fire('loading_start');
+      }
+
+      /**
+       * Method to stop the loading screen
+       * @return {[void]}
+       */
+
+   }, {
+      key: 'stopLoading',
+      value: function stopLoading() {
+         setTimeout(function () {
+            Event.fire('loading_done');
+         }, 500);
+      }
+   }]);
+
+   return _class;
+}())();
+
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+window.Exception = new (function () {
+	function _class() {
+		_classCallCheck(this, _class);
+	}
+
+	_createClass(_class, [{
+		key: 'isType',
+		value: function isType(prop, type) {
+			if ((typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) !== type) {
+				console.log('Helper::hasProperty expects second argument to be of type .' + type + ' ' + (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) + ' found');
+				return false;
+			}
+			return true;
+		}
+	}]);
+
+	return _class;
+}())();
 
 /***/ })
 

@@ -45,18 +45,22 @@
                                                                 @include('cms.pages.partials.update_form')
                                                             {!! Form::close() !!}
                                                         </td>
+                                                        @if($event->subscription == 'yes')
                                                         <td >
                                                             {!! Form::open(['method' => 'GET', 'action' => [                             'EventsController@displayDeelnemers',  $event->id ]  ]) !!}
                                                                <button  style="display:inline-block;float:left;margin:3px;" class="btn btn-warning" > <i class="ion ion-person"></i> </button>
                                                             {!! Form::close() !!}
                                                         </td>
+                                                        @else
+                                                        <td> </td>
+                                                        @endif
                                                         <td>{{ $event->id }}</td>
                                                         <td>{{ $event->title }}</td>
                                                         <td>{{ $event->location }}</td>
                                                         <td>{{ $event->date }}</td>
                                                         <td>{{ $event->description }}</td>
                                                        <!--  <td>{{ $event->lustrum_event }}</td> -->
-                                                        <td>{{ $event->time }}</td>
+                                                        <td>{{ $event->time }} - {{ $event->end_time }}</td>
                                                     </tr>
                                                     @endForeach
                                                 </tbody>

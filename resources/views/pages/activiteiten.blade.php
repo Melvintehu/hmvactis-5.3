@@ -75,7 +75,7 @@
 
 				<div class="col-lg-12 col-md-4 col-sm-6 col-xs-12 ">
 
-				<a href="#{{ $event->id }}">
+				<a href="activiteiten/{{ $event->id }}">
 
 					<div class="card type-1 background-secondary">
 

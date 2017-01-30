@@ -37,6 +37,7 @@
         <!-- Members, non-members and registrations -->
         @include('cms.navigation.navigation-dropdown', [
           'title' => "Leden",
+          'icon' => 'ion ion-university',
           'linkGroup' => [
             [
               'cms/members' => 'Leden',
@@ -51,6 +52,7 @@
         <!--  pages and sections -->
         @include('cms.navigation.navigation-dropdown', [
           'title' => "Pagina's",
+          'icon' => 'ion ion-document',
           'linkGroup' => [
             [
               'header' => "Pagina's",
@@ -69,6 +71,7 @@
         <!--  Boards and boardmembers -->
         @include('cms.navigation.navigation-dropdown', [
           'title' => "Besturen",
+          'icon' => 'ion ion-person-stalker',
           'linkGroup' => [
             [
               'header' => "Besturen",

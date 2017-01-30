@@ -14,7 +14,7 @@ class EditEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            //
+            $table->string('end_time')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class EditEventsTable extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            //
+            $table->dropColumn('end_time');
         });
     }
 }

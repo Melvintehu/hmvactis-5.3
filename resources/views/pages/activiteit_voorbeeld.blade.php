@@ -58,7 +58,7 @@
 
 								<p class="block space-outside-down-xs text-color-light"><span class="circle circle-sm bg-main inline-block align-to-text space-outside-right-sm"> </span>   {{ $data['activiteit']->date->format('l j F Y') }} </p>
 
-								<p class="block space-outside-down-xs text-color-light"><span class="circle circle-sm bg-main inline-block align-to-text space-outside-right-sm"> </span> {{ substr($data['activiteit']->time, 0, 5) }}</p>
+								<p class="block space-outside-down-xs text-color-light"><span class="circle circle-sm bg-main inline-block align-to-text space-outside-right-sm"> </span> {{ substr($data['activiteit']->time, 0, 5)}} - {{ $data['activiteit']->end_time }}</p>
 							</div>
 						</div>
 					</div>

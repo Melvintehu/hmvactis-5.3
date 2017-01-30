@@ -91,9 +91,7 @@ Route::group(['prefix' => 'cms'],  function () {
         return view('pages.commissie_voorbeeld');
     });
 
-    Route::get('/activiteit_voorbeeld', function () {
-        return view('pages.activiteit_voorbeeld');
-    });
+    Route::get('/activiteiten/{id}', 'PagesController@showActiviteit' );
 
     Route::get('/nieuws_voorbeeld', function () {
         return view('pages.nieuws_voorbeeld');

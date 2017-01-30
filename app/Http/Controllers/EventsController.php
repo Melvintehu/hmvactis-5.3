@@ -25,8 +25,9 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
+
          $data = [
-            'events' => Event::all(),
+            'events' => Event::orderBy('id', 'desc')->get(),
             ];
 
         return view('cms.pages.events.overzicht', compact('data'));
@@ -83,9 +84,10 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        // $dates = explode('/', $request['date']);
+        // $request['date'] = $dates[2] . '-'
          Event::create($request->all());
+        // dd($request->all());
          return redirect('cms/events');
     }
     /**

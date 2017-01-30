@@ -24,7 +24,7 @@ class CreateEventsTable extends Migration
             $table->timestamps();
         });
 
-        
+
     }
 
     /**
