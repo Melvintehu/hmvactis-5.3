@@ -9,29 +9,29 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-12"> 
-            @foreach($data['pages'] as $page) 
+        <div class="col-lg-12">
+            @foreach($data['pages'] as $page)
             <h1> Pagina {{ $page->name }} </h1>
             <hr>
             <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                           
+
                             <div class="panel-body">
-                                
+
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         @if(!$page->sections->isEmpty())
-                                        <div class="table-responsive">        
+                                        <div class="table-responsive">
                                             <table class="table table-hover">
-                                               
+
                                                 <thead>
                                                     <tr>
                                                         <th>#<span class='ion-arrow-down-b table-head'></span></th>
                                                         <th>Title</th>
                                                         <th>body</th>
                                                         <th>page</th>
-                                                   
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -83,11 +83,11 @@
                                                               </td>
                                                         </tr>
                                                     @endif
-                                       
+
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
 

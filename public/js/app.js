@@ -29116,8 +29116,8 @@ __webpack_require__(144);
 __webpack_require__(139);
 
 // init plugins here
-$('#datepicker').datepicker({
-	format: 'yyyy-dd-mm'
+$('.datepicker').datepicker({
+	format: 'yyyy-mm-dd'
 });
 $('.timepicker').timepicker({
 	template: 'dropdown',

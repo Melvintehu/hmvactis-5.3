@@ -141,11 +141,8 @@ class PagesController extends Controller
 
     public function showVacature($id)
     {
-
         $data = [
-
             'vacature' => Vacancie::find($id),
-
         ];
 
         return view('pages.vacatures_voorbeeld', compact('data'));

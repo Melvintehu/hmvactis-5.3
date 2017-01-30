@@ -37,19 +37,19 @@
               <table class="table table-hover">
                 <tbody>
                   <tr>
-                      <th></th>
-                      <th></th>
+                      <th > </th>
+                      <th ></th>
                       <th>#</th>
                       <th>Titel</th>
                   </tr>
                   @foreach($pages as $page)
                   <tr>
-                    <td >
+                    <td style="max-width: 20px;">
                         {!! Form::open(['method' => 'delete', 'action' => [ 'PagesController@destroy',  $page->id ]  ]) !!}
                             @include('cms.pages.partials.delete_form', ['submitButtonText' => 'X' ])
                         {!! Form::close() !!}
                     </td>
-                    <td>
+                    <td style="max-width: 25px;">
                           {!! Form::open(['method' => 'GET', 'action' => [                             'PagesController@show',  $page->id ]  ]) !!}
                               @include('cms.pages.partials.update_form')
                           {!! Form::close() !!}

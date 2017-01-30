@@ -1,24 +1,14 @@
 @extends('master')
 
 @section('title')
-
 	Vacatures
-
 @stop
 
-
-
 @section('content')
-
-
 	<div class="container no-overflow">
-
 		<div class="row">
-
 			<h1 class="space-outside-lg xs-text-center"> VACATURES </h1>
-
 			@include('partials.page-introduction', $data['pageSection'])
-
 		</div>
 
 		<div class="row row-centered text-white">
@@ -46,7 +36,5 @@
 			</a>
 			@endforeach
 		</div>
-
 	</div>
-
 @stop

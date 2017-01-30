@@ -44,9 +44,9 @@
 					<div class="image lg-rect-lg xs-space-inside-sides-lg">
 
 						@if($data['sponsor']->photo() != null)
-				  			<img class="width-auto" src="{{$data['sponsor']->thumbnail}}">
+				  			<img class="height-auto" src="{{$data['sponsor']->thumbnail}}">
 				  		@else
-				  			<img class="width-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
+				  			<img class="height-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 				  		@endif
 
 

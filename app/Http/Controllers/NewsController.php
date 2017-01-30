@@ -39,40 +39,6 @@ class NewsController extends Controller
             ];
 
         return view('pages.nieuws', compact('data'));
-
-    }
-
-    public function addPhoto($id, Request $request)
-    {
-
-        // check of er een foto bestaat voor dit nieuws id
-        $news = News::findOrFail($id);
-
-        // indien er al een foto is, verwijder deze.
-        $photos = $news->photos;
-
-            // dd($photos);
-        if(!$photos->isEmpty()){
-            $photos->first()->delete();
-        }
-
-        // create a new photo
-        $photo = $this->makePhoto($request->file('file'));
-
-
-        $news->addPhoto($photo);
-
-        return 'done';
-    }
-
-
-    public function makePhoto($file)
-    {
-
-        return Photo::named($file->getClientOriginalName(), 'nieuws')
-            ->setThumbnailDimensions(250,150)
-            ->move($file);
-
     }
 
     /**
@@ -82,7 +48,6 @@ class NewsController extends Controller
      */
     public function create()
     {
-
         return view('cms.pages.news.create');
     }
 
@@ -137,8 +102,9 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $news = News::findOrFail($id);
+        $news = News::find($id);
         $news->update($request->all());
+        // dd($request->all());
 
         return redirect('cms/news');
     }

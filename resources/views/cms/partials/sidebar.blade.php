@@ -149,7 +149,7 @@
 
             <li class="header text-light-blue">Partner Kortingen</li>
             <li><a href="{{ URL::to("cms/sponsorDiscounts") }}"><i class="fa fa-circle-o text-orange" ></i> Overzicht </a></li>
-            <li><a href="{{ URL::to("cms/sponsorDiscounts") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
+            <li><a href="{{ URL::to("cms/sponsorDiscounts/create") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
           </ul>
         </li>
         <!-- end of section -->

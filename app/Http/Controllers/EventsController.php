@@ -15,9 +15,9 @@ use Auth;
 class EventsController extends Controller
 {
 
-    // public function __construct(){
-    //      setlocale(LC_TIME, 'Dutch');
-    // }
+    public function __construct(){
+         setlocale(LC_TIME, 'Dutch');
+    }
 
     /**
      * Display a listing of the resource.

@@ -21,8 +21,8 @@ require('admin-lte/plugins/iCheck/icheck.min');
 
 
 // init plugins here
-$('#datepicker').datepicker({
-	format: 'yyyy-dd-mm'
+$('.datepicker').datepicker({
+	format: 'yyyy-mm-dd'
 });
 $('.timepicker').timepicker({
 	template: 'dropdown',

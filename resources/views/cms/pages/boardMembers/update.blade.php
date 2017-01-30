@@ -49,6 +49,7 @@
                         @endif
                         <image-uploader route="photo" model_id="{{$boardMember->id}}" type="board-member" >
                             <cropper route="cropper" aspectheight="1" aspectwidth="1" > </cropper>
+                            <cropper route="cropper" aspectheight="3" aspectwidth="10" > </cropper>
                         </image-uploader>
                     </div>
                 </div> <!-- End row -->
