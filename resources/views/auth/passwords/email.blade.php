@@ -22,7 +22,7 @@ Wachtwoord vergeten
                             <label for="email" class="col-md-4 control-label">E-mailadres</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" class="input border border-accent" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -34,8 +34,8 @@ Wachtwoord vergeten
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i> Stuur herstel link
+                                <button type="submit" class="btn-standard bg-main xs-space-outside-down-xs  text-color-light">
+                                   Stuur herstel link
                                 </button>
                             </div>
                         </div>

@@ -5,13 +5,13 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="social-media">
 					<a target="_blank" href="https://twitter.com/hmvactis">
-						<img src="../images/twitter.png">
+						<img src="/images/twitter.png">
 					</a>
 					<a target="_blank" href="https://www.facebook.com/hmvactis">
-						<img src="../images/facebook.png">
+						<img src="/images/facebook.png">
 					</a>
 					<a target="_blank" href="https://www.linkedin.com/company/hmv-actis">
-						<img src="../images/linkedin.png">
+						<img src="/images/linkedin.png">
 					</a>
 				</div>
 			</div>

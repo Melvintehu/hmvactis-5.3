@@ -8,7 +8,7 @@
 
 				<div style="width:200px;max-width:100%;" class="image auto space-outside-up-md xs-space-outside-down-md">
 					
-					<img class="height-auto" src='../images/logo.png' >
+					<img class="height-auto" src='/images/logo.png' >
 					
 				</div>
 
@@ -26,7 +26,7 @@
 
 					<div style="width:30px;" class="image  inline-block space-outside-right-xs">
 						
-						<img class="height-auto" src="../images/twitter.png">
+						<img class="height-auto" src="/images/twitter.png">
 						
 					</div>
 
@@ -36,7 +36,7 @@
 
 					<div style="width:30px;" class="image inline-block space-outside-right-xs">
 						
-						<img class="height-auto" src="../images/facebook.png">
+						<img class="height-auto" src="/images/facebook.png">
 						
 					</div>
 					
@@ -46,7 +46,7 @@
 
 					<div style="width:30px;" class="image inline-block space-outside-right-xs">
 						
-						<img class="height-auto" src="../images/linkedin.png">
+						<img class="height-auto" src="/images/linkedin.png">
 						
 					</div>
 					
