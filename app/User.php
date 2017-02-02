@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 
 class User extends Authenticatable
 {
 
     use SoftDeletes;
+    use Notifiable;
 
 
     protected $dates = [

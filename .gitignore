@@ -1,6 +1,10 @@
 /node_modules
 /public/storage
 /vendor
+/public/css/app.css
+ppublic/css/cms.css
+public/js/app.js
+public/js/vue.js
 /.idea
 Homestead.json
 Homestead.yaml
