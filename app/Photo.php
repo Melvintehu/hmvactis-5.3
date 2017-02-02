@@ -14,12 +14,20 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class Photo extends Model
 {
+	public $multiple;
+
 	protected $fillable = [
 		'filename',
 		'type',
 		'model_id',
 	];
 
+	public static function multiple()
+	{
+		$photo = new Self();
+		$photo->multiple = true;
+		return $photo;
+	}
 
 	public function dir()
 	{
@@ -66,7 +74,9 @@ class Photo extends Model
         }else{
         	// else delete the reference
             if(file_exists($photo->dir() . $photo->filename)){
-                File::delete($photo->dir() . $photo->filename);
+            	if($photo->multiple != true) {
+	                File::delete($photo->dir() . $photo->filename);
+            	}
             }
 
             // set new filename
@@ -77,7 +87,9 @@ class Photo extends Model
         return $photo;
 	}
 
-	public static function forModel($type, $model_id, $file)
+
+
+	public static function forModel($type, $model_id, $file, $multi = false)
 	{
 		// Self::checkMigration();
 		$filename = Self::uniqueFilename($file);

@@ -168,6 +168,23 @@
         </li>
         <!-- end of section -->
 
+
+        <!-- section  -->
+        <li class="treeview">
+          <a href="#"><i class="ion ion-images"></i> <span>Foto Albums</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ URL::to("cms/galleries") }}"><i class="fa fa-circle-o text-orange"></i> Overzicht </a></li>
+            <li><a href="{{ URL::to("cms/galleries/create") }}"><i class="fa fa-circle-o text-orange"></i> Toevoegen </a></li>
+          </ul>
+        </li>
+        <!-- end of section -->
+
+
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>

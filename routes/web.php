@@ -7,7 +7,7 @@ Route::auth();
 Route::get('/cropper', 'ImageHelperController@index');
 
 Route::resource('photo', 'PhotosController');
-
+Route::post('photo/multi', 'MultiPhotosController@store');
 
 Route::group(['prefix' => 'cms'],  function () {
     Route::group(['middleware' => ['auth']], function(){
@@ -16,6 +16,9 @@ Route::group(['prefix' => 'cms'],  function () {
         Route::resource('members', 'MembersController');
         Route::resource('non-members', 'NonMembersController');
         Route::resource('registrations', 'RegistrationsController');
+        Route::resource('galleries', 'GalleriesController');
+
+
 
         Route::resource('news', 'NewsController');
         Route::resource('sponsorDiscounts', 'SponsorDiscountsController');

@@ -1,9 +1,6 @@
 require('./bootstrap');
 require('./Core/Classes');
 
-
-
-
 require('jquery');
 require('bootstrap-sass');
 require('fastclick');

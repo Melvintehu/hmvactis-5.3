@@ -2,43 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
+use App\Gallery;
 use Illuminate\Http\Request;
 
-use App\News;
-use App\Photo;
-use Carbon\carbon;
-use App\Http\Requests;
-
-class NewsController extends Controller
+class GalleriesController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => [
-            'show',
-        ]]);
-
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-         $data = [
-            'news' => News::orderBy('date_added', 'DESC')->get(),
-            ];
+    public function index()
+    {
+        $galleries = Gallery::all();
 
-        return view('cms.pages.news.overzicht', compact('data'));
-    }
-
-    public function overzicht(){
-          $data = [
-            'nieuws' => News::orderBy('publish_date', 'desc')->get(),
-            ];
-
-        return view('pages.nieuws', compact('data'));
+        return view('cms.pages.galleries.index', compact('galleries'));
     }
 
     /**
@@ -48,7 +27,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('cms.pages.news.create');
+        return view('cms.pages.galleries.create');
     }
 
     /**
@@ -59,8 +38,9 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-         News::create($request->all());
-         return redirect('cms/news');
+        Gallery::create($request->all());
+
+        return redirect('cms/galleries');
     }
 
     /**
@@ -71,9 +51,7 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $newsmessage = News::find($id);
-
-        return view('pages.nieuws_voorbeeld', compact('newsmessage'));
+        //
     }
 
     /**
@@ -86,11 +64,11 @@ class NewsController extends Controller
     {
         $photo = Photo::where([
             ['model_id', $id],
-            ['type', 'news']
+            ['type', 'gallery'],
         ])->first();
+        $gallery = Gallery::find($id);
 
-        $news = News::find($id);
-        return view('cms.pages.news.update', compact('news', 'photo'));
+        return view('cms.pages.galleries.edit', compact('gallery', 'photo'));
     }
 
     /**
@@ -102,11 +80,7 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $news = News::find($id);
-        $news->update($request->all());
-        // dd($request->all());
-
-        return redirect('cms/news');
+        //
     }
 
     /**
@@ -117,8 +91,6 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $news = News::find($id);
-        $news->delete();
-        return redirect('cms/news');
+        //
     }
 }

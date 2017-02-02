@@ -24,13 +24,19 @@ class ImageHelperController extends Controller
 
 
 		$files = File::allFiles($photo->dir());
+
 		if(is_array($files)){
 			foreach($files as $file){
-				File::delete($dir . $file->getFilename());
+				if($photo->multiple != true) {
+					File::delete($dir . $file->getFilename());
+				}
 			}
 		}else{
-			File::delete($dir . $files->getFilename());
+			if($photo->multiple != true) {
+				File::delete($dir . $files->getFilename());
+			}
 		}
+
 
 
 		$width = $request->get('width');
