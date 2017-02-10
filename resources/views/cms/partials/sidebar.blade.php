@@ -81,7 +81,7 @@
             [
               'header' => 'Bestuursleden',
               'cms/boardMembers' => 'Overzicht',
-              'cms/boardmembers/create' => 'Toevoegen',
+              'cms/boardMembers/create' => 'Toevoegen',
             ]
           ]
         ])

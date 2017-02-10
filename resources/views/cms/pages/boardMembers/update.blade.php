@@ -26,7 +26,8 @@
 
                                                         <!-- form submit button -->
                                                         <div class='form-group'>
-                                                            <input type="submit" name="aanpassen" value="aanpassen">
+                                                            {!! Form::submit('Aanpassen', ['class' => 'btn btn-success']) !!}
+
                                                         </div>
                                                     {!! Form::close() !!}
 

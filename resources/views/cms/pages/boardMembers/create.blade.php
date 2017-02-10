@@ -23,6 +23,8 @@
 
                                                         @include('cms.pages.boardMembers.partials.form', ['submitButtonText' => 'Toevoegen', 'boards' => $boards ])
 
+                                                        {!! Form::submit('Toevoegen', ['class' => 'btn btn-success']) !!}
+
                                                     {!! Form::close() !!}
                                                 </tbody>
                                             </table>
