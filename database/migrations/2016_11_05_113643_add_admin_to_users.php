@@ -13,7 +13,7 @@ class AddAdminToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('admin')->unsigned();
+            $table->integer('admin')->nullable();
         });
     }
 
