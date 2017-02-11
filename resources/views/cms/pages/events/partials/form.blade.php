@@ -17,7 +17,7 @@
       <div class="input-group-addon">
         <i class="fa fa-calendar"></i>
       </div>
-      {!! Form::text('date', null, ['id' => 'datepicker', 'class' => 'form-control pull-right']) !!}
+      {!! Form::text('date', null, [ 'class' => 'form-control pull-right datepicker']) !!}
     </div>
 </div>
 
