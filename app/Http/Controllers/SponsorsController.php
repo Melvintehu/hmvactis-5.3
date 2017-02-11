@@ -17,11 +17,13 @@ class SponsorsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-         $data = [
-            'sponsors' => Sponsor::all(),
-            ];
 
-        return view('cms.pages.sponsors.overzicht', compact('data'));
+        $sponsoren =  Sponsor::where('main_partner', 'nee')->orderBy('created_at', 'DESC')->get();
+        $hoofdsponsoren = Sponsor::where('main_partner', 'ja')->orderBy('created_at', 'DESC')->get();
+        return view('cms.pages.sponsors.index', compact(
+            'sponsoren',
+            'hoofdsponsoren'
+        ));
     }
 
     public function overzicht(){
@@ -66,13 +68,7 @@ class SponsorsController extends Controller
     public function show($id)
     {
 
-        $photo = Photo::where([
-            ['model_id', $id],
-            ['type', 'sponsor']
-        ])->first();
 
-        $sponsor = Sponsor::find($id);
-        return view('cms.pages.sponsors.update', compact('sponsor', 'photo'));
     }
 
     /**
@@ -83,7 +79,13 @@ class SponsorsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $photo = Photo::where([
+            ['model_id', $id],
+            ['type', 'sponsor']
+        ])->first();
+
+        $sponsor = Sponsor::find($id);
+        return view('cms.pages.sponsors.update', compact('sponsor', 'photo'));
     }
 
     /**

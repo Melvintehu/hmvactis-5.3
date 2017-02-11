@@ -11,6 +11,9 @@ Route::post('photo/multi', 'MultiPhotosController@store');
 
 Route::group(['prefix' => 'cms'],  function () {
     Route::group(['middleware' => ['auth']], function(){
+        Route::resource('mainPartner', 'MainPartnerController');
+
+
         // crm related routes
         Route::resource('admin', 'AdminController');
         Route::resource('members', 'MembersController');
