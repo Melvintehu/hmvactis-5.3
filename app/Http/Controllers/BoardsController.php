@@ -17,7 +17,7 @@ class BoardsController extends Controller
      */
     public function index(){
          $data = [
-            'boards' => Board::all(),
+            'boards' => Board::orderBy('created_at', 'DESC')->get(),
             ];
 
         return view('cms.pages.boards.overzicht', compact('data'));
