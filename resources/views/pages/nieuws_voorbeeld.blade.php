@@ -18,9 +18,9 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 space-inside-down-lg">
-					<div class="image ">
+					<div style="width: 300px; height: 200px;" class="image ">
 						@if($newsmessage->photo() != null)
-							<img class="height-auto" src="../{{$newsmessage->thumbnail}}">
+							<img  src="../{{$newsmessage->thumbnail}}">
 						@else
 							<img class="height-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 						@endif

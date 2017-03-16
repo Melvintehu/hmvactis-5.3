@@ -70,7 +70,7 @@ class PagesController extends Controller
         ];
 
         $partners = Sponsor::otherPartners();
-        $hoofdpartner = Sponsor::mainPartner()->first();
+        $hoofdpartner = Sponsor::where('main_partner', 'ja')->orderBy('created_at', 'DESC')->first();
         $news = News::latest(4);
         $events = Event::latestOfCurrentMonth(4);
 

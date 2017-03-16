@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -37,12 +38,29 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function isSignedUpForEvent($event_id)
+    {
+        if(Auth::check()) {
+            $user = Auth::user();
 
-    public function events(){
+            if($user->events->isEmpty()) {
+                return false;
+            }
+            return $user->events->contains(function($event) use ($event_id) {
+                return $event->id == $event_id;
+            });
+
+            return false;
+        }
+    }
+
+    public function events()
+    {
         return $this->belongsToMany('App\Event');
     }
 
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne('App\Profile');
     }
 

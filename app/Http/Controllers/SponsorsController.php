@@ -29,7 +29,7 @@ class SponsorsController extends Controller
     public function overzicht(){
          $data = [
             'pageSection' => PageSection::where('id', 6)->first(),
-            'hoofdpartners' => Sponsor::where('main_partner', 'ja')->get(),
+            'hoofdpartners' => Sponsor::where('main_partner', 'ja')->orderBy('created_at', 'DESC')->get(),
             'partners' => Sponsor::where('main_partner','nee')->where('no_sponsor', 'nee')->get(),
             ];
 

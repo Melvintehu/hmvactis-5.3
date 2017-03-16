@@ -1,6 +1,3 @@
-require('./bootstrap');
-require('./Core/Classes');
-
 require('jquery');
 require('bootstrap-sass');
 require('fastclick');
@@ -19,13 +16,11 @@ require('admin-lte/plugins/iCheck/icheck.min');
 
 // init plugins here
 $('.datepicker').datepicker({
-	format: 'yyyy-mm-dd'
+  format: 'yyyy-mm-dd'
 });
 $('.timepicker').timepicker({
-	template: 'dropdown',
-	showInputs: false,
-	maxHours: 24,
-	showMeridian: false
+  template: 'dropdown',
+  showInputs: false,
+  maxHours: 24,
+  showMeridian: false
 });
-
-

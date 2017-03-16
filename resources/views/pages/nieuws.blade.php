@@ -29,7 +29,7 @@
 								</div>
 								<div class="image">
 									@if($nieuwsmessage->photo() != null)
-										<img class="img-responsive" src="{{$nieuwsmessage->thumbnail}}">
+										<img class="width-auto" src="{{$nieuwsmessage->thumbnail}}">
 									@else
 										<img class="width-auto" src="http://www.bakkerijkosters.nl/afbeeldingen/geen_afbeelding_beschikbaar_gr.gif">
 									@endif

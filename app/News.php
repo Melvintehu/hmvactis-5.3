@@ -1,10 +1,8 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Photo;
-
 
 class News extends Model
 {
@@ -22,6 +20,7 @@ class News extends Model
    	];
 
 
+
     public function photo() {
         return Photo::where([
             ['model_id', $this->id],
@@ -34,8 +33,6 @@ class News extends Model
         return "/images/news/{$this->id}/16x9/{$this->photo()->filename}";
     }
 
-
-
     public static function latest($limit)
     {
       return self::orderBy('publish_date', 'desc')->take($limit)->get();
@@ -46,19 +43,16 @@ class News extends Model
         return $this->belongsToMany('App\Photo')->withPivot('type')->withTimeStamps();
     }
 
-
-    public function setMydateAttribute($date)
-    {
-        $this->attributes['publish_date'] = Carbon::createFromFormat('Y/M/d', $date);
-    }
+    // public function setMydateAttribute($date)
+    // {
+    //     $this->attributes['publish_date'] = Carbon::createFromFormat('Y/M/d', $date);
+    // }
 
     public function addPhoto(Photo $photo)
     {
-
       $this->photos()->attach($photo->id, ['type' => 'original']);
 
       return $this->photos()->save($photo);
-
     }
 
 }

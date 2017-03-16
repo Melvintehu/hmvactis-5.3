@@ -4,31 +4,6 @@
 	{{ $data['activiteit']->title }}
 @stop
 
-
-
-<?php
-
-	$ingeschreven = false;
-
-?>
-
-@if(Auth::user() != null)
-
-	@foreach(Auth::user()->events()->get() as $event)
-
-		@if($event->id == $data['activiteit']->id)
-
-			<?php $ingeschreven = true; ?>
-
-		@endif
-
-	@endforeach
-
-@endif
-
-
-
-
 @section('content')
 
 	<div class="bg-secondary no-overflow">
@@ -72,7 +47,7 @@
 						@endif
 					</div>
 				</div>
-				@if($ingeschreven == true )
+				@if(App\User::isSignedUpForEvent($data['activiteit']->id) )
 					<div class="col-lg-12 xs-text-center sm-text-center">
 						<p class="padding-sm bg-main text-color-light bold sm-space-outside-up-lg xs-space-outside-up-lg"> Je bent ingeschreven voor deze activiteit </p>
 					</div>
@@ -89,16 +64,8 @@
 			<div class="col-lg-12 space-outside-md xs-text-center sm-text-center">
 
 				{!! Form::open(['method' => 'POST', 'action' => ['EventsController@signUpUser', $data['activiteit']->id] ]) !!}
-				@if (Auth::check())
 
-
-					@if($ingeschreven == false && $data['activiteit']->subscription == 'yes' && Carbon::now() <= $data['activiteit']->date)
-
-							<button class="btn-standard bg-main text-color-light " href="/activiteiten" > Inschrijven </button>
-
-					@endif
-
-				@endif
+        @include('pages.partials.events.signup-button')
 
 				<a class="btn-standard bg-accent text-color-dark inline-block space-outside-left-lg " href="/activiteiten"> Ga terug </a>
 				{!! Form::close() !!}
@@ -111,7 +78,7 @@
 
 
 
-	@if (!Auth::check() && $data['activiteit']->subscription == 'yes' && Carbon::now() <= $data['activiteit']->date)
+	@if (!Auth::check() && $data['activiteit']->subscription == 'yes')
 
 	<!-- Section inschrijven voor activiteit -->
 	<section class="container space-outside-down-lg fadeInDown wow">

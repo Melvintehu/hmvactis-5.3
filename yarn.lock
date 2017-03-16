@@ -2143,11 +2143,7 @@ jquery-slimscroll@^1.3.8:
   dependencies:
     jquery ">= 1.7"
 
-"jquery@>= 1.7":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
-
-jquery@^3.1.0:
+"jquery@>= 1.7", jquery@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
@@ -2889,6 +2885,10 @@ osenv@0:
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
+
+owl-carousel-2@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/owl-carousel-2/-/owl-carousel-2-0.0.3.tgz#48b16920c66769dce44b65acf3a0e171c2081f29"
 
 pako@~0.2.0:
   version "0.2.9"

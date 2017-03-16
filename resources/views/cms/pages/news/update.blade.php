@@ -17,7 +17,49 @@
                                             <tbody>
                                                {!! Form::model($news, ['method' => 'PUT', 'action' => ['NewsController@update', $news->id ] ]) !!}
                                                     {{ csrf_field() }}
-                                                    @include('cms.pages.news.partials.form', ['submitButtonText' => 'Aanpassen' ])
+                                                    <!-- form textfield  -->
+
+
+                                                    <div class='form-group'>
+                                                        {!! Form::label('title', '   Titel  ') !!}
+                                                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                                    </div>
+
+
+                                                    <!-- form textfield  -->
+                                                    <div class='form-group'>
+                                                        <label> Wanneer wil je dat het nieuwsbericht op de website komt? </label>
+                                                        <div class="input-group date">
+                                                          <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                          </div>
+                                                          <input type="text" class="form-control pull-right datepicker" value="<?php echo explode(' ', $news->publish_date)[0]; ?>" name="publish_date">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- form textfield  -->
+                                                    <div class='form-group'>
+                                                        <label> Van welke datum is het nieuwsbericht? </label>
+                                                        <div class="input-group date">
+                                                          <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                          </div>
+                                                          <input type="text" class="form-control pull-right datepicker" value="<?php echo explode(' ', $news->date_added)[0]; ?>" name="date_added">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- form textfield  -->
+                                                    <div class='form-group'>
+                                                        {!! Form::label('description', '  Beschrijving  ') !!}
+                                                        {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+                                                    </div>
+
+
+                                                    <!-- form submit button -->
+                                                    <div class='form-group'>
+                                                        {!! Form::submit('aanpassen', ['class' => 'btn btn-success']) !!}
+                                                    </div>
                                                 {!! Form::close() !!}
                                             </tbody>
                                         </table>
