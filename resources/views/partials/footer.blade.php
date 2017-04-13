@@ -45,7 +45,7 @@
 			<div class="col-lg-6">
 				<a class="text-color-light block space-outside-xs" href="Algemene voorwaarden lidmaatschap HMV Actis.pdf">  Algemene voorwaarden </a>
 				<a class="text-color-light block space-outside-xs" href="../../Beleidsplanversiedefinitief.pdf"> Beleidsplan </a>
-				<a class="text-color-light block space-outside-xs" href="../../huishoudelijkreglement-2012.pdf"> Huishoudelijk Regelement</a>
+				<a class="text-color-light block space-outside-xs" href="../../huishoudelijkreglement-2012.pdf"> Huishoudelijk Reglement</a>
 			</div>
 
 		</div>
