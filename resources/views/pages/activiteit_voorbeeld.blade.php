@@ -47,6 +47,7 @@
 						@endif
 					</div>
 				</div>
+
 				@if(App\User::isSignedUpForEvent($data['activiteit']->id) )
 					<div class="col-lg-12 xs-text-center sm-text-center">
 						<p class="padding-sm bg-main text-color-light bold sm-space-outside-up-lg xs-space-outside-up-lg"> Je bent ingeschreven voor deze activiteit </p>

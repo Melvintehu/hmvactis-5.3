@@ -25,11 +25,14 @@
 
 						</div>
 
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 xs-space-inside-left-xl">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 							<div class="text xs-space-outside-down-lg sm-space-outside-down-lg">
 
-								<a href="http://{{ $data['sponsor']->website }}"><p class="text-color-light">Klik hier Bezoek de website!</p></a>
+								<div class="col-lg-12 xs-text-center space-outside-down-md fadeInDown wow">
+									<a href="http://{{ $data['sponsor']->website }}" class="btn-standard bg-main text-color-light space-outside-md block"> Website</a>
+								</div>
+
 
 							</div>
 
