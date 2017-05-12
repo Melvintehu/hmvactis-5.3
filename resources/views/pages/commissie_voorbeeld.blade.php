@@ -11,7 +11,7 @@
 	<div class="container fadeInDown wow">
 		<div class="page">
 			<div class='row'>
-				<div class="col-lg-2 space-outside-md">
+				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-6 space-outside-md">
 					<div class="space-inside-md space-inside-sides-md image round background-accent">
 						<img class="img-responsive" src="../images/{{ $data['committee']->name }}-icon.png">
 					</div>
