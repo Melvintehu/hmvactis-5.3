@@ -92,22 +92,33 @@
             </div>
             <!-- /.box-body -->
 
-              @foreach($photos as $photo)
-                <div class="col-lg-3 thumb">
-                  <a class="thumbnail" href="/cms/photo/album/{{$photo->id}}/edit">
-                    <img src="/images/{{ $photo->type }}/{{ $photo->model_id }}/16x9/{{ $photo->filename }}">
-                  </a>
-                </div>
-              @endforeach
-
               <div id="app">
                   <image-uploader route="photo" multi="true" model_id="{{$album->id}}" type="album" >
+                    <p slot="description">U kan hieronder een nieuwe foto uploaden in de formaten( JPG en PNG ) met een maximum bestandsgrootte van 2MB. </p>
                       <cropper route="cropper" multi="true" aspectheight="9" aspectwidth="16" > </cropper>
                       <cropper route="cropper" multi="true" aspectheight="1" aspectwidth="1" > </cropper>
                       <cropper route="cropper" multi="true" aspectheight="11" aspectwidth="16" > </cropper>
                   </image-uploader>
               </div>
-
+              <div style="margin-top: 20px;margin-bottom: 50px;" class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-12" style="margin-bottom: 20px;">
+                    <h1>Geuploade foto's</h1>
+                  </div>
+                  @foreach($photos as $photo)
+                    <div class="col-lg-3 thumb">
+                      <a class="thumbnail" href="/cms/photo/album/{{$photo->id}}/edit">
+                        <img src="/images/{{ $photo->type }}/{{ $photo->model_id }}/1x1/{{ $photo->filename }}">
+                      </a>
+                      <form action="/photo/{{ $photo->id }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="btn btn-danger">Foto verwijderen</button>
+                      </form>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
           </div>
           <!-- /.box -->
         </div>

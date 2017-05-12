@@ -3,6 +3,9 @@
     <div class="row">
         <slot></slot>
         <div class="col-lg-12">
+            <slot name="description"> </slot>
+        </div>
+        <div class="col-lg-12">
             <form :action="'/' + route"
                   class="dropzone"
                   id="my-awesome-dropzone">

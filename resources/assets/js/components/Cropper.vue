@@ -8,13 +8,16 @@
             <img :id="getId()"  :src="getImage()">
         </div>
     </div>
-    <div class="col-lg-12 space-outside-sm" style="margin-bottom: 20px;" >
+    <div class="col-lg-12 space-outside-sm" style="margin-bottom: 20px;" v-if="photo != null"  >
         <button class="btn btn-primary " style="display: inline-block"  @click="storePhoto">Crop Photo</button>
+        <p style="display: inline-block; margin-top: 20px; margin-left: 20px;">
+            <slot name="description"> </slot>
+        </p>
     </div>
-    <div class="col-lg-12">
+    <div v-if="croppedImage != null" class="col-lg-12">
         <p>Preview: </p>
     </div>
-    <div class="col-lg-12" >
+    <div class="col-lg-12"  >
         <div class="col-lg-12 thumb">
           <a class="thumbnail"   v-if="croppedImage != null">
             <img style="max-height:100%;" :src="getCroppedImage()">

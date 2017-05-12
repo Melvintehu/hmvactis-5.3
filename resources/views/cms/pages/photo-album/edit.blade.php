@@ -63,10 +63,15 @@
                   </image-display>
                 @endif
 
+
                 <image-uploader route="photo"  photo_id="{{ $photo->id }}" multi="true" model_id="{{$photo->model_id}}" type="album" >
-                    <cropper route="cropper" multi="true" aspectheight="9" aspectwidth="16" > </cropper>
-                    <cropper route="cropper" multi="true" aspectheight="1" aspectwidth="1" > </cropper>
-                    <cropper route="cropper" multi="true" aspectheight="11" aspectwidth="16" > </cropper>
+                    <p slot="description">U kan hieronder de huidige foto vervangen met een nieuwe foto in de formaten( JPG en PNG ) met een maximum bestandsgrootte van 2MB. </p>
+                    <cropper route="cropper" multi="true" aspectheight="1" aspectwidth="1" >
+                      <p slot="description" >Deze foto zal als thumbnail te zien zijn.</p>
+                    </cropper>
+                    <cropper route="cropper" multi="true" aspectheight="11" aspectwidth="16" >
+                      <p slot="description">Deze foto zal in de slider te zien zijn.</p>
+                    </cropper>
                 </image-uploader>
             </div>
 
