@@ -40,6 +40,8 @@ class User extends Authenticatable
 
     public static function isSignedUpForEvent($event_id)
     {
+
+
         if(Auth::check()) {
             $user = Auth::user();
 
