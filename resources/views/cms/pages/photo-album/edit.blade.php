@@ -33,6 +33,7 @@
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
+
                   <!-- <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
                   <div class="input-group-btn">
@@ -44,11 +45,21 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <form method="POST" action="/cms/photo/album" >
+
+              <form method="POST" action="/cms/album/" >
                 {{csrf_field()}}
                 {{ method_field('PUT') }}
                   <table class="table table-hover">
                     <tbody>
+                      <tr>
+                        <td>
+                          <div class="form-group">
+                            <a class="btn btn-success" href="/cms/album/{{$photo->model_id}}/edit">
+                              Ga terug
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
                 </table>
             </div>
