@@ -22,7 +22,6 @@ use App\Profile;
         <link rel="stylesheet" type="text/css" href="/css/app.css">
         <link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
         <link rel="stylesheet" type="text/css" href="/css/animate.css">
-
     </head>
     <script>
     window.Laravel = <?php echo json_encode([

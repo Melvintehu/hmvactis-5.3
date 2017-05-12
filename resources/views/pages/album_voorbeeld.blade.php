@@ -12,9 +12,11 @@
 
 		<div class="row row-centered text-white">
 			@foreach($album->photos() as $photo)
-				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 fadeInDown wow">
+				<div class="col-lg-3  fadeInDown wow ">
 					<div class="image">
-						<img class="" src="/images/{{ $photo->type }}/{{ $photo->model_id }}/1x1/{{ $photo->filename }}">
+						<a href='/images/{{ $photo->type }}/{{ $photo->model_id }}/{{ $photo->filename}}' data-gallery="album" data-toggle="lightbox">
+							<img class="" src="/images/{{ $photo->type }}/{{ $photo->model_id }}/1x1/{{ $photo->filename }}">
+						</a>
 					</div>
 				</div>
 			@endforeach

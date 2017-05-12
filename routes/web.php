@@ -54,6 +54,9 @@ Route::group(['prefix' => 'cms'],  function () {
 
     Route::group(['middleware' => ['auth']], function(){
 
+        Route::get('albums', 'PagesController@albums');
+        Route::get('albums/{id}', 'PagesController@showAlbum');
+        
         Route::get('/logout', function()
         {
             Auth::logout();
@@ -93,9 +96,6 @@ Route::group(['prefix' => 'cms'],  function () {
     Route::get('/activiteit/{id}', 'PagesController@showActiviteit');
 
     Route::get('/lid-worden', 'RegisterController@create');
-
-    Route::get('albums', 'PagesController@albums');
-    Route::get('albums/{id}', 'PagesController@showAlbum');
 
     // tijdelijke routes
     Route::get('/commissie_voorbeeld', function () {
