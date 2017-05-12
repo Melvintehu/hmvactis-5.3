@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use File;
-use Image;
-use App\Photo;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-
-class PhotosController extends Controller
+use App\Photo;
+class PhotoAlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +13,7 @@ class PhotosController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -38,14 +34,7 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->get('photo_id') != null) {
-            return Photo::forUpdate($request->get('photo_id'), $request->file('file'));
-        }
-
-        if($request->get('multi') == 'true') {
-            return Photo::forMultiModel($request->get('model_type'), $request->get('model_id'), $request->file('file') );
-        }
-        return Photo::forModel($request->get('model_type'), $request->get('model_id'), $request->file('file') );
+        //
     }
 
     /**
@@ -67,7 +56,10 @@ class PhotosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $photo = Photo::find($id);
+        return view('cms.pages.photo-album.edit', compact(
+            'photo'
+        ));
     }
 
     /**

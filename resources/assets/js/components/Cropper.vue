@@ -1,23 +1,31 @@
 <template>
 <div>
-<div  class="col-lg-10">
+<div  class="col-lg-4">
+    <div class="row">
 
-    <div class="col-lg-6" style="text-align:center">
-        <div v-if="photo != null"  >
+    <div class="col-lg-12" style="text-align:center">
+        <div class="" style="display: inline-block" v-if="photo != null"  >
             <img :id="getId()"  :src="getImage()">
         </div>
     </div>
-
-    <div class="col-lg-6" style="text-align:center">
-        <div style="height:200px;width:200px;overflow:hidden;" v-if="croppedImage != null"  >
+    <div class="col-lg-12 space-outside-sm" style="margin-bottom: 20px;" >
+        <button class="btn btn-primary " style="display: inline-block"  @click="storePhoto">Crop Photo</button>
+    </div>
+    <div class="col-lg-12">
+        <p>Preview: </p>
+    </div>
+    <div class="col-lg-12" >
+        <div class="col-lg-12 thumb">
+          <a class="thumbnail"   v-if="croppedImage != null">
             <img style="max-height:100%;" :src="getCroppedImage()">
+          </a>
         </div>
+
     </div>
 
-    <div class="col-lg-12" style="text-align:center;margin-bottom:20px;margin-top:20px;">
-        <button class="btn btn-primary"  @click="storePhoto">Crop Photo</button>
-    </div>
 
+
+    </div>
 </div>
 
 
@@ -31,6 +39,7 @@
             aspectheight: "",
             aspectwidth: "",
             dir: "",
+            multi: "",
         },
         data() {
             return {
@@ -116,7 +125,8 @@
                     '&x=' + xPercentage +
                     '&y=' + yPercentage +
                     '&dir=' + this.aspectwidth + 'x' + this.aspectheight +
-                    '&photo=' + JSON.stringify(this.photo)
+                    '&photo=' + JSON.stringify(this.photo) +
+                    '&multi=' + this.multi
                 , {}).then((response) => {
                     setTimeout(() => {
                         Event.fire('imageCropped' + this.getId(), response.data.croppedImage);

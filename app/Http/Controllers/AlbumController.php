@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use File;
-use Image;
-use App\Photo;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class PhotosController extends Controller
+use App\Http\Requests\AlbumRequest;
+use App\Album;
+use App\Photo;
+
+class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,8 @@ class PhotosController extends Controller
      */
     public function index()
     {
-        //
+        $albums = Album::all();
+        return view('cms.pages.album.index', compact('albums'));
     }
 
     /**
@@ -27,7 +28,7 @@ class PhotosController extends Controller
      */
     public function create()
     {
-        //
+        return view('cms.pages.album.create');
     }
 
     /**
@@ -36,16 +37,14 @@ class PhotosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AlbumRequest $request)
     {
-        if($request->get('photo_id') != null) {
-            return Photo::forUpdate($request->get('photo_id'), $request->file('file'));
-        }
-
-        if($request->get('multi') == 'true') {
-            return Photo::forMultiModel($request->get('model_type'), $request->get('model_id'), $request->file('file') );
-        }
-        return Photo::forModel($request->get('model_type'), $request->get('model_id'), $request->file('file') );
+        $album = Album::create([
+            'title' => $request->get('titel'),
+            'body' => $request->get('beschrijving'),
+            'date' => $request->get('datum'),
+        ]);
+        return redirect('cms/album/' . $album->id . '/edit');
     }
 
     /**
@@ -67,7 +66,17 @@ class PhotosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $album = Album::find($id);
+
+        $photos = Photo::where([
+            ['model_id', $id],
+            ['type', 'album']
+        ])->get();
+
+        return view('cms.pages.album.edit', compact(
+            'album',
+            'photos'
+        ));
     }
 
     /**
@@ -77,9 +86,15 @@ class PhotosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AlbumRequest $request, $id)
     {
-        //
+        $album = Album::find($id)->update([
+            'title' => $request->get('titel'),
+            'body' => $request->get('beschrijving'),
+            'date' => $request->get('datum'),
+        ]);
+
+        return redirect('cms/album');
     }
 
     /**
@@ -90,6 +105,7 @@ class PhotosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Album::find($id)->delete();
+        return redirect('cms/album');
     }
 }

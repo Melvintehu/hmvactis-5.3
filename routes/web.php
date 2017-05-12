@@ -19,9 +19,9 @@ Route::group(['prefix' => 'cms'],  function () {
         Route::resource('members', 'MembersController');
         Route::resource('non-members', 'NonMembersController');
         Route::resource('registrations', 'RegistrationsController');
-        Route::resource('galleries', 'GalleriesController');
-
-
+        
+        Route::resource('album', 'AlbumController');
+        Route::resource('photo/album', 'PhotoAlbumController');
 
         Route::resource('news', 'NewsController');
         Route::resource('sponsorDiscounts', 'SponsorDiscountsController');
