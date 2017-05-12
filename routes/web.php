@@ -94,6 +94,9 @@ Route::group(['prefix' => 'cms'],  function () {
 
     Route::get('/lid-worden', 'RegisterController@create');
 
+    Route::get('albums', 'PagesController@albums');
+    Route::get('albums/{id}', 'PagesController@showAlbum');
+
     // tijdelijke routes
     Route::get('/commissie_voorbeeld', function () {
         return view('pages.commissie_voorbeeld');

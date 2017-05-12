@@ -17,7 +17,9 @@ use Carbon\Carbon;
 use App\PageSection;
 use App\Http\Requests;
 use Auth;
+use App\Album;
 use App\Profile;
+use App\Photo;
 
 
 class PagesController extends Controller
@@ -110,6 +112,20 @@ class PagesController extends Controller
 
         return view('pages.nieuws_voorbeeld', compact('data'));
 
+    }
+
+    public function albums(){
+
+        $albums = Album::all();
+
+        return view('pages.albums', compact('albums'));
+    }
+
+    public function showAlbum($id){
+
+        $album = Album::find($id);
+
+        return view('pages.album_voorbeeld', compact('album'));
     }
 
     public function showCommissie($id)
